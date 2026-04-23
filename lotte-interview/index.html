@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>롯데백화점 면접 보드</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --surface: rgba(255, 251, 245, 0.92);
+      --ink: #181411;
+      --muted: #6b6259;
+      --lotte-red: #c11f2d;
+      --lotte-red-deep: #8b1320;
+      --navy: #123a73;
+      --teal: #0d8f8a;
+      --gold: #c78b22;
+      --shadow-lg: 0 24px 60px rgba(52, 35, 21, 0.12);
+      --shadow-md: 0 12px 28px rgba(52, 35, 21, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(193, 31, 45, 0.12), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(18, 58, 115, 0.14), transparent 22%),
+        linear-gradient(180deg, #f8f4ed 0%, #f1ece4 100%);
+      line-height: 1.55;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { margin: 0; line-height: 1.15; letter-spacing: -0.03em; }
+    p { margin: 0; }
+    .shell { width: min(calc(100% - 28px), var(--max)); margin: 0 auto; padding: 28px 0 64px; }
+    .hero, .section {
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+      border-radius: 36px;
+      background:
+        linear-gradient(140deg, rgba(255, 252, 247, 0.98), rgba(251, 241, 231, 0.96)),
+        linear-gradient(180deg, rgba(193, 31, 45, 0.12), rgba(18, 58, 115, 0.08));
+    }
+    .hero { padding: 42px; }
+    .eyebrow {
+      display: inline-flex;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(193, 31, 45, 0.09);
+      color: var(--lotte-red-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 { margin-top: 18px; font-size: clamp(36px, 5vw, 68px); max-width: 880px; }
+    .hero p { margin-top: 18px; max-width: 760px; color: var(--muted); font-size: 19px; }
+    .hero strong { color: var(--lotte-red-deep); }
+    .section { margin-top: 18px; padding: 30px; background: var(--surface); }
+    .section-kicker { color: var(--lotte-red); font-weight: 900; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .section-head p { margin-top: 8px; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, #fff, #faf4eb);
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      box-shadow: var(--shadow-md);
+    }
+    .card h3 { font-size: 24px; }
+    .card p { margin-top: 12px; color: var(--muted); }
+    .link-row { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+    }
+    .button.main {
+      background: linear-gradient(180deg, rgba(193, 31, 45, 0.11), rgba(255,255,255,0.98));
+      color: var(--lotte-red-deep);
+      border-color: rgba(193, 31, 45, 0.18);
+    }
+    .home-link {
+      display: inline-flex;
+      margin-top: 18px;
+      padding: 11px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      font-weight: 800;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero, .section { padding: 22px; }
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="eyebrow">Lotte Interview Board</div>
+      <h1>롯데백화점 PT 면접 준비 보드</h1>
+      <p>
+        지금까지 만든 면접 준비용 페이지를 한곳에 모았습니다.
+        <strong>IR 요약, 경쟁사 분석, 마케팅 전략, 전국 점포 매출 비교</strong>를 바로 오가면서 볼 수 있습니다.
+      </p>
+      <div class="link-row">
+        <a class="button main" href="./롯데백화점_IR_요약.html">IR 보드 보기</a>
+        <a class="button" href="./롯데백화점_경쟁사분석.html">경쟁사 분석</a>
+        <a class="button" href="./롯데백화점_마케팅전략.html">마케팅 전략</a>
+        <a class="button" href="./전국백화점_매출비교.html">전국 매출비교</a>
+      </div>
+      <a class="home-link" href="../index.html">기존 포트폴리오 홈으로 돌아가기</a>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div class="section-kicker">Boards</div>
+        <h2>보드 구성</h2>
+        <p>면접 직전에는 아래 순서로 보면 가장 효율적입니다.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>1. IR 보드</h3>
+          <p>롯데백화점 실적, 외국인 매출, 가치제고 계획, 사업보고서 포인트를 한 번에 훑는 페이지입니다.</p>
+        </article>
+        <article class="card">
+          <h3>2. 경쟁사 분석</h3>
+          <p>롯데, 신세계, 현대의 포지셔닝 차이와 롯데의 대응 전략을 면접용 문장으로 정리한 페이지입니다.</p>
+        </article>
+        <article class="card">
+          <h3>3. 마케팅 전략</h3>
+          <p>직무 이해를 바탕으로 글로벌, 공간, 웨딩 CRM, VIP 전략을 발표형 장표 구조로 정리했습니다.</p>
+        </article>
+        <article class="card">
+          <h3>4. 전국 매출비교</h3>
+          <p>2025년 기준 주요 백화점 68개 점포를 전체와 브랜드별로 필터링해서 볼 수 있는 비교 페이지입니다.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

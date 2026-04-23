@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>롯데백화점 PT 면접용 IR 보드</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --surface: rgba(255, 251, 245, 0.9);
+      --ink: #181411;
+      --muted: #6b6259;
+      --line: rgba(124, 101, 76, 0.16);
+      --lotte-red: #c11f2d;
+      --lotte-red-deep: #8b1320;
+      --navy: #123a73;
+      --navy-soft: #dce8fb;
+      --teal: #0d8f8a;
+      --teal-soft: #d7f2ef;
+      --gold: #c78b22;
+      --gold-soft: #f6e7c5;
+      --violet: #5247b8;
+      --shadow-lg: 0 24px 60px rgba(52, 35, 21, 0.12);
+      --shadow-md: 0 12px 28px rgba(52, 35, 21, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --max: 1320px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(193, 31, 45, 0.12), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(18, 58, 115, 0.14), transparent 22%),
+        linear-gradient(180deg, #f8f4ed 0%, #f1ece4 100%);
+      line-height: 1.55;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { margin: 0; line-height: 1.15; letter-spacing: -0.03em; }
+    p { margin: 0; }
+    .shell { width: min(calc(100% - 28px), var(--max)); margin: 0 auto; padding: 20px 0 64px; }
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 40;
+      margin-bottom: 18px;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 251, 245, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+    }
+    .topbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; padding-left: 8px; }
+    .brand-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lotte-red), var(--gold));
+      box-shadow: 0 0 0 8px rgba(193, 31, 45, 0.08);
+    }
+    .jump-links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .jump-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      color: #40362f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .hero, .section {
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+    }
+    .hero {
+      padding: 42px;
+      border-radius: 36px;
+      background:
+        linear-gradient(140deg, rgba(255, 252, 247, 0.98), rgba(251, 241, 231, 0.96)),
+        linear-gradient(180deg, rgba(193, 31, 45, 0.12), rgba(18, 58, 115, 0.08));
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(193, 31, 45, 0.09);
+      color: var(--lotte-red-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 { margin-top: 18px; font-size: clamp(38px, 5vw, 74px); max-width: 900px; }
+    .hero-summary { margin-top: 18px; max-width: 760px; font-size: 19px; color: var(--muted); }
+    .hero-summary strong { color: var(--lotte-red-deep); }
+    .section { margin-top: 18px; padding: 30px; border-radius: var(--radius-xl); background: var(--surface); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    .section-head p { margin-top: 8px; color: var(--muted); max-width: 760px; }
+    .section-kicker { color: var(--lotte-red); font-weight: 900; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .memory-strip, .metric-board, .panel-grid.two, .chart-grid, .ring-grid, .insight-grid, .script-board, .flash-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .memory-strip, .metric-board, .script-board { grid-template-columns: 1.2fr 0.8fr; }
+    .panel-grid.two, .ring-grid, .insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .chart-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .flash-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .memory-card, .hero-note, .card, .chart-card, .insight, .script-card, .callout, .metric, .ring-card {
+      background: linear-gradient(180deg, #fff, #faf4eb);
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+    .memory-grid, .metrics { display: grid; gap: 14px; }
+    .memory-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .memory-pill {
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #f9f2e9);
+      border: 1px solid rgba(123, 104, 87, 0.12);
+    }
+    .memory-pill strong, .metric .label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .memory-pill span { display: block; font-size: 24px; font-weight: 900; }
+    .memory-pill em { display: block; margin-top: 6px; font-style: normal; color: var(--lotte-red-deep); font-size: 13px; font-weight: 700; }
+    .hero-note ul, .script-card ul { margin: 0; padding-left: 18px; }
+    .spot { color: var(--lotte-red-deep); font-weight: 900; }
+    .spot.cool { color: #0c6662; }
+    .spot.navy { color: var(--navy); }
+    .flash-card {
+      min-height: 206px;
+      padding: 22px;
+      border-radius: 28px;
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .flash-card.red { background: linear-gradient(180deg, #dd3442, #a51723); }
+    .flash-card.navy { background: linear-gradient(180deg, #2157a3, #14366b); }
+    .flash-card.teal { background: linear-gradient(180deg, #11a49e, #0c706d); }
+    .flash-card.gold { background: linear-gradient(180deg, #d69e2f, #9a6714); }
+    .step, .delta, .tag, .label-chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+    .step { padding: 6px 10px; background: rgba(255,255,255,0.14); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .flash-card h3 { margin-top: 18px; font-size: 24px; }
+    .flash-card p { margin-top: 12px; color: rgba(255,255,255,0.88); font-size: 15px; }
+    .flash-card strong { color: #fffbc8; }
+    .metric .value { margin-top: 8px; font-size: 34px; font-weight: 900; letter-spacing: -0.05em; }
+    .delta { margin-top: 8px; padding: 6px 10px; font-size: 13px; }
+    .delta.up { background: rgba(193, 31, 45, 0.09); color: var(--lotte-red-deep); }
+    .delta.cool { background: rgba(13, 143, 138, 0.1); color: #0a6662; }
+    .metric .hint, .footer-note { margin-top: 10px; color: var(--muted); font-size: 13px; }
+    .callout { background: linear-gradient(180deg, #fff7f8, #fff); border-color: rgba(193, 31, 45, 0.12); }
+    .callout h3 { font-size: 24px; color: var(--lotte-red-deep); }
+    .callout p { margin-top: 12px; color: var(--muted); }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .tag { padding: 8px 12px; font-size: 13px; }
+    .tag.red, .label-chip.say { background: rgba(193, 31, 45, 0.09); color: var(--lotte-red-deep); }
+    .tag.navy, .label-chip.fact { background: var(--navy-soft); color: var(--navy); }
+    .tag.teal, .label-chip.read { background: var(--teal-soft); color: #0c6662; }
+    .tag.gold { background: var(--gold-soft); color: #8b5c04; }
+    .chart-card h3 { margin-bottom: 6px; font-size: 20px; }
+    .chart-card p { margin-bottom: 16px; color: var(--muted); font-size: 14px; }
+    .v-chart { display: flex; align-items: end; gap: 16px; min-height: 260px; padding: 12px 0 6px; border-bottom: 1px solid rgba(123, 104, 87, 0.2); }
+    .v-group { flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-items: end; }
+    .v-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .v-bar-value { font-size: 12px; font-weight: 800; color: var(--muted); }
+    .v-bar { width: 100%; max-width: 62px; height: var(--bar-h, 100px); border-radius: 18px 18px 10px 10px; background: linear-gradient(180deg, var(--bar-c1), var(--bar-c2)); }
+    .v-labels { display: flex; justify-content: space-around; margin-top: 12px; color: var(--muted); font-size: 13px; font-weight: 800; }
+    .h-chart { display: grid; gap: 14px; }
+    .h-row { display: grid; grid-template-columns: 88px 1fr 72px; gap: 12px; align-items: center; }
+    .track { position: relative; overflow: hidden; height: 18px; border-radius: 999px; background: #efe4d3; }
+    .fill { position: absolute; inset: 0 auto 0 0; width: var(--w, 50%); border-radius: inherit; background: linear-gradient(90deg, var(--bar-c1), var(--bar-c2)); }
+    .h-value { text-align: right; font-size: 14px; font-weight: 900; color: var(--muted); }
+    .table-wrap { overflow-x: auto; border-radius: 22px; border: 1px solid rgba(123, 104, 87, 0.12); background: #fff; }
+    table { width: 100%; min-width: 700px; border-collapse: collapse; }
+    th, td { padding: 16px 18px; border-bottom: 1px solid #f0e6da; vertical-align: top; text-align: left; }
+    th { background: #fbf4ea; font-size: 13px; font-weight: 900; color: #5b4e42; text-transform: uppercase; letter-spacing: 0.04em; }
+    td strong { color: var(--lotte-red-deep); }
+    .ring-card { display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: center; }
+    .ring { width: 150px; height: 150px; border-radius: 50%; position: relative; background: conic-gradient(var(--ring-color) calc(var(--pct) * 1%), #ebe2d5 0); }
+    .ring::before { content: ""; position: absolute; inset: 18px; border-radius: 50%; background: #fffaf4; }
+    .ring-center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; z-index: 2; }
+    .ring-center strong { display: block; font-size: 36px; line-height: 1; font-weight: 900; }
+    .ring-center span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .timeline { display: grid; gap: 12px; }
+    .timeline-item { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 16px; border-radius: 20px; background: linear-gradient(180deg, #fff, #faf4eb); border: 1px solid rgba(123, 104, 87, 0.12); }
+    .timeline-year { display: grid; place-items: center; border-radius: 16px; font-weight: 900; font-size: 26px; color: #fff; background: linear-gradient(180deg, var(--navy), #2157a3); min-height: 86px; }
+    .timeline-item h4 { font-size: 19px; margin-bottom: 8px; }
+    .timeline-item p, .insight p { margin: 8px 0; }
+    .label-chip { padding: 5px 10px; font-size: 12px; letter-spacing: 0.03em; margin-right: 8px; }
+    .script-line {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff7f8, #fff);
+      border-left: 5px solid var(--lotte-red);
+      font-size: 17px;
+      font-weight: 700;
+      color: #3c2f2a;
+    }
+    .source-list { margin: 0; padding-left: 18px; color: var(--muted); }
+    .source-list li + li, .hero-note li + li, .script-card li + li { margin-top: 10px; }
+    @media (max-width: 1180px) {
+      .memory-strip, .metric-board, .script-board, .panel-grid.two, .chart-grid, .ring-grid, .insight-grid, .flash-grid { grid-template-columns: 1fr; }
+      .memory-grid, .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 860px) {
+      .shell { width: min(calc(100% - 18px), var(--max)); }
+      .topbar { position: static; }
+      .topbar-inner, .jump-links { justify-content: flex-start; }
+      .hero, .section { padding: 22px; }
+      .memory-grid { grid-template-columns: 1fr 1fr; }
+      .ring-card, .timeline-item { grid-template-columns: 1fr; }
+      .ring { margin: 0 auto; }
+    }
+    @media (max-width: 620px) {
+      h1 { font-size: 36px; }
+      .memory-grid, .metrics { grid-template-columns: 1fr; }
+      .h-row { grid-template-columns: 72px 1fr 56px; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-badge"></span>
+          <span>롯데백화점 PT 면접용 암기 보드</span>
+        </div>
+        <div class="jump-links">
+          <a href="./롯데백화점_마케팅전략.html">마케팅 전략</a>
+          <a href="./롯데백화점_경쟁사분석.html">경쟁사 분석</a>
+          <a href="./전국백화점_매출비교.html">전국 매출비교</a>
+          <a href="#summary">30초 요약</a>
+          <a href="#numbers">핵심 숫자</a>
+          <a href="#charts">비교 그래프</a>
+          <a href="#glossary">용어사전</a>
+          <a href="#ceoday">CEO IR DAY</a>
+          <a href="#foreign">외국인</a>
+          <a href="#valueup">가치제고</a>
+          <a href="#bizreport">사업보고서</a>
+          <a href="#script">PT 멘트</a>
+          <a href="#sources">출처</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">Lotte Department Store · Interview Memory Board</div>
+      <h1>숫자를 외우지 말고<br>구조를 먼저 기억하기</h1>
+      <p class="hero-summary">
+        이번 면접에서 기억해야 할 핵심은 하나입니다.
+        <strong>롯데백화점은 매출이 아니라 이익을 만드는 사업</strong>이고,
+        그 이익은 <strong>기존점 성장, 고마진 상품, 외국인 매출, 핵심 점포 리뉴얼</strong>에서 나온다는 점입니다.
+      </p>
+      <div class="memory-strip">
+        <div class="memory-card">
+          <h3>면접 전에 딱 4개만 외우면 되는 숫자</h3>
+          <div class="memory-grid">
+            <div class="memory-pill"><strong>연간 매출</strong><span>32,127</span><em>+0.3%</em></div>
+            <div class="memory-pill"><strong>연간 영업이익</strong><span>4,912</span><em>+22.5%</em></div>
+            <div class="memory-pill"><strong>외국인 매출</strong><span>7,348</span><em>+29%</em></div>
+            <div class="memory-pill"><strong>핵심 방향</strong><span>4개점</span><em>리뉴얼 로드맵</em></div>
+          </div>
+        </div>
+        <aside class="hero-note">
+          <h3>이 페이지 보는 순서</h3>
+          <ul>
+            <li><span class="spot">1.</span> 30초 요약에서 결론부터 잡기</li>
+            <li><span class="spot">2.</span> 핵심 숫자와 그래프로 증거 익히기</li>
+            <li><span class="spot">3.</span> 외국인과 가치제고 계획으로 전략 해석하기</li>
+            <li><span class="spot">4.</span> 맨 아래 PT 멘트로 말하기 연습하기</li>
+          </ul>
+        </aside>
+      </div>
+    </header>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">30-Second Summary</div>
+          <h2>30초 요약</h2>
+          <p>머릿속에 먼저 들어가야 할 문장 4개입니다. 이 순서로 말하면 PT 흐름이 자연스럽습니다.</p>
+        </div>
+      </div>
+      <div class="flash-grid">
+        <article class="flash-card red"><span class="step">Step 1</span><h3>매출은 보합,<br>이익은 급증</h3><p><strong>매출 +0.3%</strong>인데 <strong>영업이익 +22.5%</strong>입니다. 이 한 줄이 이번 백화점 사업의 핵심입니다.</p></article>
+        <article class="flash-card navy"><span class="step">Step 2</span><h3>기존점이 강했다</h3><p><strong>SSSG +8%</strong>, <strong>대형점 +9%</strong>. 신규 출점보다 기존 핵심 점포의 힘이 실적을 밀었습니다.</p></article>
+        <article class="flash-card teal"><span class="step">Step 3</span><h3>외국인이 성장 동력</h3><p><strong>외국인 매출 7,348억 원</strong>, <strong>+29%</strong>. 특히 부산권과 동부산이 강하게 뛰었습니다.</p></article>
+        <article class="flash-card gold"><span class="step">Step 4</span><h3>앞으로는<br>핵심점포 리뉴얼</h3><p>가치 제고 계획은 <strong>핵심 4개점 리뉴얼</strong>, <strong>쇼핑몰 확대</strong>, <strong>웨스트레이크 하노이 모델 확장</strong>을 말합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="numbers">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Core Numbers</div>
+          <h2>핵심 숫자 대시보드</h2>
+          <p>숫자를 다 외우지 않아도 됩니다. 어떤 숫자가 결론을 뒷받침하는지만 보이면 됩니다.</p>
+        </div>
+      </div>
+      <div class="metric-board">
+        <div class="metrics">
+          <article class="metric"><div class="label">2025 연간 매출</div><div class="value">32,127억</div><div class="delta cool">전년 대비 +0.3%</div><div class="hint">외형은 거의 보합입니다.</div></article>
+          <article class="metric"><div class="label">2025 연간 영업이익</div><div class="value">4,912억</div><div class="delta up">전년 대비 +22.5%</div><div class="hint">이익 개선 폭이 훨씬 큽니다.</div></article>
+          <article class="metric"><div class="label">4Q 영업이익률</div><div class="value">24.0%</div><div class="delta up">전년 20.5% → 24.0%</div><div class="hint">분기 기준으로도 이익 레버리지가 확인됩니다.</div></article>
+          <article class="metric"><div class="label">외국인 매출</div><div class="value">7,348억</div><div class="delta cool">전년 대비 +29%</div><div class="hint">2016년 이후 최고 매출입니다.</div></article>
+        </div>
+        <aside class="callout">
+          <h3>면접용 결론</h3>
+          <p><span class="spot">롯데백화점은 매출을 크게 늘리지 않아도 이익을 만들 수 있는 구조</span>를 보여줬습니다. 이유는 <span class="spot cool">고마진 패션</span>, <span class="spot navy">기존점 성장</span>, 그리고 <span class="spot">외국인 매출 확대</span>가 동시에 맞물렸기 때문입니다.</p>
+          <div class="tag-row">
+            <span class="tag red">고마진 상품 믹스</span>
+            <span class="tag navy">기존점 경쟁력</span>
+            <span class="tag teal">외국인 성장</span>
+            <span class="tag gold">이익 기여형 집객</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="charts">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Visual Memory</div>
+          <h2>그래프로 외우기</h2>
+          <p>수치를 표로 보기 전에 그림으로 먼저 기억하면 훨씬 빨리 들어옵니다.</p>
+        </div>
+      </div>
+      <div class="chart-grid">
+        <article class="chart-card">
+          <h3>연간 실적 비교</h3>
+          <p>매출은 거의 그대로인데, 영업이익 막대가 더 빠르게 올라갑니다.</p>
+          <div class="v-chart">
+            <div class="v-group">
+              <div class="v-bar-wrap"><span class="v-bar-value">32,036</span><div class="v-bar" style="--bar-h: 210px; --bar-c1:#355f9e; --bar-c2:#16396e;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">4,009</span><div class="v-bar" style="--bar-h: 62px; --bar-c1:#e0535f; --bar-c2:#ba2030;"></div></div>
+            </div>
+            <div class="v-group">
+              <div class="v-bar-wrap"><span class="v-bar-value">32,127</span><div class="v-bar" style="--bar-h: 212px; --bar-c1:#4c7dcb; --bar-c2:#2157a3;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">4,912</span><div class="v-bar" style="--bar-h: 76px; --bar-c1:#f07882; --bar-c2:#c11f2d;"></div></div>
+            </div>
+          </div>
+          <div class="v-labels"><span>2024</span><span>2025</span></div>
+        </article>
+        <article class="chart-card">
+          <h3>4Q 실적 비교</h3>
+          <p>4분기에서도 같은 패턴이 반복됩니다. 연간 개선이 일회성이 아니라는 뜻입니다.</p>
+          <div class="v-chart">
+            <div class="v-group">
+              <div class="v-bar-wrap"><span class="v-bar-value">8,798</span><div class="v-bar" style="--bar-h: 176px; --bar-c1:#355f9e; --bar-c2:#16396e;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">1,807</span><div class="v-bar" style="--bar-h: 52px; --bar-c1:#13a8a2; --bar-c2:#0d7d79;"></div></div>
+            </div>
+            <div class="v-group">
+              <div class="v-bar-wrap"><span class="v-bar-value">9,168</span><div class="v-bar" style="--bar-h: 184px; --bar-c1:#4c7dcb; --bar-c2:#2157a3;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">2,204</span><div class="v-bar" style="--bar-h: 64px; --bar-c1:#1bc4bd; --bar-c2:#0d8f8a;"></div></div>
+            </div>
+          </div>
+          <div class="v-labels"><span>2024 4Q</span><span>2025 4Q</span></div>
+        </article>
+        <article class="chart-card">
+          <h3>외국인 매출 성장률</h3>
+          <p>점포별 편차가 커서, 외국인 전략은 점포 맞춤형으로 봐야 합니다.</p>
+          <div class="h-chart">
+            <div class="h-row"><strong>전체</strong><div class="track"><div class="fill" style="--w:38.7%; --bar-c1:#355f9e; --bar-c2:#16396e;"></div></div><div class="h-value">29%</div></div>
+            <div class="h-row"><strong>본점</strong><div class="track"><div class="fill" style="--w:40%; --bar-c1:#e0535f; --bar-c2:#ba2030;"></div></div><div class="h-value">30%</div></div>
+            <div class="h-row"><strong>잠실점</strong><div class="track"><div class="fill" style="--w:24%; --bar-c1:#c78b22; --bar-c2:#9a6714;"></div></div><div class="h-value">18%</div></div>
+            <div class="h-row"><strong>부산본점</strong><div class="track"><div class="fill" style="--w:53.3%; --bar-c1:#11a49e; --bar-c2:#0d7d79;"></div></div><div class="h-value">40%</div></div>
+            <div class="h-row"><strong>동부산점</strong><div class="track"><div class="fill" style="--w:90.7%; --bar-c1:#5247b8; --bar-c2:#2f2782;"></div></div><div class="h-value">68%</div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Key Table</div>
+          <h2>숫자 확인용 표</h2>
+          <p>그래프로 감을 잡고, 표로 정확한 수치를 체크하면 됩니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>국내 백화점 실적</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>구분</th><th>2024</th><th>2025</th><th>증감</th></tr></thead>
+              <tbody>
+                <tr><td>연간 매출</td><td>32,036억</td><td><strong>32,127억</strong></td><td>+0.3%</td></tr>
+                <tr><td>연간 영업이익</td><td>4,009억</td><td><strong>4,912억</strong></td><td>+22.5%</td></tr>
+                <tr><td>연간 영업이익률</td><td>12.5%</td><td><strong>15.3%</strong></td><td>+2.8%p</td></tr>
+                <tr><td>4Q 매출</td><td>8,798억</td><td><strong>9,168억</strong></td><td>+4.2%</td></tr>
+                <tr><td>4Q 영업이익</td><td>1,807억</td><td><strong>2,204억</strong></td><td>+22.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footer-note">주: 2024년 4Q 수치는 2025년 수치와 YoY를 기준으로 역산했습니다.</div>
+        </article>
+        <article class="card">
+          <h3>수익성 개선 요인</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>팩트</th><th>의미</th></tr></thead>
+              <tbody>
+                <tr><td><strong>SSSG +8%</strong></td><td>신규점보다 기존점 경쟁력이 강해졌다는 뜻</td></tr>
+                <tr><td><strong>대형점 +9%</strong></td><td>핵심 거점 점포가 실적을 끌었다는 신호</td></tr>
+                <tr><td><strong>점유율 +37bp</strong></td><td>업태 내 존재감이 커지고 있다는 의미</td></tr>
+                <tr><td><strong>고마진 패션 호조</strong></td><td>매출보다 영업이익이 더 크게 뛴 직접 원인</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="glossary">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Glossary</div>
+          <h2>면접용 용어 사전</h2>
+          <p>모르는 용어가 나오면 숫자가 안 읽힙니다. 정의보다 “쉽게 말하면 무엇인지”와 “이 자료에서 어떻게 쓰였는지”를 같이 기억하면 훨씬 빨리 외워집니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>숫자 읽는 용어</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>용어</th><th>쉽게 말하면</th><th>이 자료 예시</th></tr></thead>
+              <tbody>
+                <tr><td><strong>YoY</strong></td><td>작년 같은 기간과 비교</td><td>연간 매출 <strong>+0.3%</strong>, 영업이익 <strong>+22.5%</strong></td></tr>
+                <tr><td><strong>QoQ</strong></td><td>직전 분기와 비교</td><td>이번 자료 핵심은 아니지만 분기 흐름 볼 때 자주 사용</td></tr>
+                <tr><td><strong>bp</strong></td><td>아주 작은 비율 차이 단위. <strong>100bp = 1%p</strong></td><td>점유율 <strong>+37bp</strong>는 <strong>+0.37%p</strong> 뜻</td></tr>
+                <tr><td><strong>%p</strong></td><td>퍼센트와 퍼센트의 차이</td><td>영업이익률 <strong>12.5% → 15.3%</strong>는 <strong>+2.8%p</strong></td></tr>
+                <tr><td><strong>영업이익률</strong></td><td>매출 100원 중 영업이익이 몇 원 남는지</td><td>2025 연간 영업이익률 <strong>15.3%</strong></td></tr>
+                <tr><td><strong>CAGR</strong></td><td>몇 년 평균으로 보면 매년 얼마나 성장했는지</td><td>CEO IR DAY 대형점 총매출 <strong>CAGR +8.4%</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="card">
+          <h3>백화점 사업 읽는 용어</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>용어</th><th>쉽게 말하면</th><th>이 자료 예시</th></tr></thead>
+              <tbody>
+                <tr><td><strong>SSSG</strong></td><td>기존점 매출 성장률. 새로 연 점포 빼고 기존 점포만 비교</td><td><strong>+8%</strong>면 기존 점포 경쟁력이 좋아졌다는 뜻</td></tr>
+                <tr><td><strong>객단가</strong></td><td>고객 1명이 평균 얼마 쓰는지</td><td>같은 방문자 수여도 객단가가 오르면 실적 개선</td></tr>
+                <tr><td><strong>상품 믹스</strong></td><td>무엇을 얼마나 팔았는지의 조합</td><td>고마진 패션 비중이 늘면 이익이 더 잘 남음</td></tr>
+                <tr><td><strong>판관비</strong></td><td>판매·관리할 때 드는 비용</td><td>사업보고서의 <strong>판관비 효율화</strong>가 이익 개선 요인</td></tr>
+                <tr><td><strong>고정비</strong></td><td>매출이 조금 변해도 크게 안 바뀌는 비용</td><td>백화점은 고정비 비중이 높아 매출이 조금 늘어도 이익이 크게 움직일 수 있음</td></tr>
+                <tr><td><strong>캐시카우</strong></td><td>회사의 현금과 이익을 안정적으로 만들어주는 사업</td><td>백화점은 롯데쇼핑의 <strong>수익성 엔진</strong>으로 해석 가능</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>제일 헷갈리는 차이</h3>
+          <div class="script-line"><span class="spot">bp</span>는 아주 작은 비율 차이 단위이고, <span class="spot cool">%p</span>는 퍼센트와 퍼센트의 차이, <span class="spot navy">%</span>는 증가율 자체입니다.</div>
+          <ul style="margin:18px 0 0; padding-left:18px;">
+            <li><strong>+22.5%</strong> : 영업이익이 작년보다 22.5% 늘었다는 뜻</li>
+            <li><strong>+2.8%p</strong> : 영업이익률이 12.5%에서 15.3%로 올라간 차이</li>
+            <li><strong>+37bp</strong> : 점유율이 0.37%p 올라갔다는 뜻</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>면접에서 이렇게 바꿔 말하면 쉽다</h3>
+          <div class="tag-row" style="margin-top:0;">
+            <span class="tag red">SSSG = 기존점 힘</span>
+            <span class="tag navy">YoY = 작년과 비교</span>
+            <span class="tag teal">bp = 점유율의 미세한 변화</span>
+            <span class="tag gold">상품 믹스 = 무엇을 팔았나</span>
+          </div>
+          <div class="script-line">예를 들어 “SSSG +8%”는 전문용어처럼 보여도, 실제로는 <strong>새 점포 덕분이 아니라 기존 점포가 잘 팔렸다</strong>는 뜻으로 풀어서 말하면 됩니다.</div>
+          <div class="script-line">“점유율 +37bp”도 그대로 읽기보다 <strong>업태 내 존재감이 조금이지만 분명하게 커졌다</strong>고 바꿔 말하면 훨씬 자연스럽습니다.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ceoday">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">CEO IR DAY</div>
+          <h2>CEO IR DAY에서 새로 잡히는 백화점 포인트</h2>
+          <p>기존 실적 요약과 겹치지 않는 내용만 골랐습니다. 이 자료의 강점은 점포 운영 전략과 공간 재해석 사례가 더 구체적이라는 점입니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>대형점 리더십은 이미 숫자로 증명됐다</h3>
+          <p style="margin:0 0 14px; color:var(--muted);">잠실점, 본점, 부산본점, 인천점, 동부산점 기준 총매출 트렌드입니다.</p>
+          <div class="v-chart">
+            <div class="v-group" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+              <div class="v-bar-wrap"><span class="v-bar-value">61,544</span><div class="v-bar" style="--bar-h: 132px; --bar-c1:#355f9e; --bar-c2:#16396e;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">71,688</span><div class="v-bar" style="--bar-h: 154px; --bar-c1:#4776c1; --bar-c2:#2157a3;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">74,447</span><div class="v-bar" style="--bar-h: 160px; --bar-c1:#5a88d1; --bar-c2:#2f66b3;"></div></div>
+              <div class="v-bar-wrap"><span class="v-bar-value">78,394</span><div class="v-bar" style="--bar-h: 170px; --bar-c1:#f07882; --bar-c2:#c11f2d;"></div></div>
+            </div>
+          </div>
+          <div class="v-labels"><span>'21</span><span>'22</span><span>'23</span><span>'24</span></div>
+          <div class="script-line">대형점 총매출은 2021년 6.15조 원에서 2024년 7.84조 원으로 늘었고, CEO IR DAY는 이를 <span class="spot">CAGR +8.4%</span>로 제시합니다.</div>
+        </article>
+        <article class="card">
+          <h3>공간 효율화 사례는 면접에서 바로 쓰기 좋다</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>사례</th><th>무엇을 바꿨나</th><th>결과</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>타임빌라스 수원</td>
+                  <td>마트 면적을 쇼핑몰 영업면적으로 변경, 3F 다이닝 에비뉴 오픈</td>
+                  <td><strong>오픈 이후 월평균 매출 +107%</strong></td>
+                </tr>
+                <tr>
+                  <td>아울렛 청주점</td>
+                  <td>마트 면적을 아울렛 영업면적으로 전환, 키즈관 오픈</td>
+                  <td><strong>오픈 후 8월말 누계 매출 +18%</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tag-row">
+            <span class="tag gold">공간 재배치</span>
+            <span class="tag red">체류시간 확대</span>
+            <span class="tag navy">저효율 면적 전환</span>
+          </div>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>K-Fashion과 MD 실험이 더 구체화됐다</h3>
+          <ul style="margin:0; padding-left:18px;">
+            <li>본점에 <strong>K-Fashion 전문관 `KINETIC GROUND`</strong>를 운영하며 콘텐츠형 MD를 강화했습니다.</li>
+            <li>CEO IR DAY는 백화점 핵심상권 전략을 <strong>고객 체류시간 확대</strong>와 <strong>선택과 집중</strong>으로 설명합니다.</li>
+            <li><strong>쇼핑몰 전략적 확대</strong>, <strong>주력 점포 리뉴얼</strong>, <strong>중·소형점 리스트럭처링</strong>도 함께 제시됩니다.</li>
+          </ul>
+          <div class="script-line">즉 백화점 경쟁력은 더 이상 상품 진열만이 아니라, 고객이 오래 머무는 공간과 새로움 있는 MD 실험에서 나온다고 읽을 수 있습니다.</div>
+        </article>
+        <article class="card">
+          <h3>해외 백화점은 2025년 상반기에 흑자 전환했다</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>구간</th><th>매출액</th><th>영업이익</th><th>메모</th></tr></thead>
+              <tbody>
+                <tr><td>'23</td><td>603억</td><td>-179억</td><td>적자</td></tr>
+                <tr><td>'24</td><td>1,081억</td><td>-81억</td><td>적자 축소</td></tr>
+                <tr><td>'24.1H</td><td>497억</td><td>-48억</td><td>상반기 적자</td></tr>
+                <tr><td>'25.1H</td><td><strong>605억</strong></td><td><strong>39억</strong></td><td><strong>흑자 전환</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="script-line">웨스트레이크 하노이 성공 모델은 단순한 성장 스토리가 아니라, <span class="spot cool">해외 백화점이 실제로 수익 전환 구간에 들어섰다</span>는 근거까지 보여줍니다.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="foreign">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Foreign Customers</div>
+          <h2>외국인 매출은 어떻게 기억할까</h2>
+          <p>외국인 고객은 그냥 늘었다가 아니라, 어느 점포가 더 빨리 성장했는지를 기억해야 합니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>점포별 해석</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>점포</th><th>성장률</th><th>암기 포인트</th></tr></thead>
+              <tbody>
+                <tr><td>본점</td><td><strong>+30%</strong></td><td>안정적인 글로벌 쇼핑 허브</td></tr>
+                <tr><td>잠실점</td><td><strong>+18%</strong></td><td>내국인 기반이 강한 곳에서 외국인 성장 추가</td></tr>
+                <tr><td>부산본점</td><td><strong>+40%</strong></td><td>관광 동선 결합형 성장</td></tr>
+                <tr><td>동부산점</td><td><strong>+68%</strong></td><td>관광형 상권에서 성장 폭이 가장 큼</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="card">
+          <h3>바로 외울 문장</h3>
+          <div class="script-line">외국인 매출은 전사적으로 늘었지만 성장률은 점포별로 다르기 때문에, 외국인을 하나의 집단으로 보기보다 점포별 관광 목적과 소비 패턴에 맞춘 세분화 전략이 필요합니다.</div>
+          <div class="tag-row">
+            <span class="tag red">본점 = 글로벌 허브</span>
+            <span class="tag teal">부산권 = 관광 동선</span>
+            <span class="tag navy">잠실 = 내국인 기반 위 추가 성장</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Positioning</div>
+          <h2>롯데쇼핑 안에서 백화점의 위치</h2>
+          <p>면접에서 이 부분을 짚으면 백화점을 사업 포트폴리오 관점에서 이해하고 있다는 인상을 줄 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="ring-grid">
+        <article class="ring-card">
+          <div class="ring" style="--pct: 24.3; --ring-color: #c11f2d;">
+            <div class="ring-center"><div><strong>24.3%</strong><span>매출 비중</span></div></div>
+          </div>
+          <div><h3>매출 비중</h3><p>사업보고서 기준 백화점 사업부는 롯데쇼핑 전체 매출의 <span class="spot">24.3%</span>를 차지합니다. 매출 비중만 보면 하나의 사업부지만, 아래 이익 비중까지 보면 존재감이 완전히 달라집니다.</p></div>
+        </article>
+        <article class="ring-card">
+          <div class="ring" style="--pct: 92.2; --ring-color: #0d8f8a;">
+            <div class="ring-center"><div><strong>92.2%</strong><span>영업이익 비중</span></div></div>
+          </div>
+          <div><h3>영업이익 기여도</h3><p>사업보고서 기준 백화점 사업부의 영업이익 비중은 <span class="spot cool">92.2%</span>입니다. 즉 백화점은 단순 사업부가 아니라 롯데쇼핑의 <span class="spot cool">실질 이익 엔진</span>으로 읽는 편이 맞습니다.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="valueup">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Value-up Plan</div>
+          <h2>기업가치 제고 계획에서 읽히는 미래 전략</h2>
+          <p>이제는 2025년에 잘했다에서 끝나면 안 됩니다. 앞으로 어떻게 키울 건가까지 연결해야 PT가 강해집니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>한눈에 보는 방향</h3>
+          <div class="tag-row" style="margin-top:0;">
+            <span class="tag red">백화점 본업 경쟁력 강화</span>
+            <span class="tag navy">핵심 점포 리뉴얼</span>
+            <span class="tag gold">쇼핑몰 확대</span>
+            <span class="tag teal">웨스트레이크 하노이 확장</span>
+          </div>
+          <ul style="margin:18px 0 0; padding-left:18px;">
+            <li>국내는 <span class="spot">핵심 점포 강화 + 자산 리밸런싱 + 쇼핑몰 확대</span>가 핵심입니다.</li>
+            <li>해외는 <span class="spot cool">동남아 프리미엄 쇼핑 1번지</span> 전략으로 웨스트레이크 하노이 모델을 강조합니다.</li>
+            <li>즉, 백화점은 이제 판매 채널이 아니라 <span class="spot navy">공간 포트폴리오 사업</span>으로 확장되고 있습니다.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>점포 포트폴리오 변화</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>축</th><th>포인트</th></tr></thead>
+              <tbody>
+                <tr><td>저효율 점포</td><td>자산 매각·개발, 점포 종료, 분당점 영업종료</td></tr>
+                <tr><td>핵심 점포</td><td>인천, 부산, 본점, 잠실 중심으로 리뉴얼</td></tr>
+                <tr><td>신규 포맷</td><td>쇼핑몰 5개점 예정, 청량리 신관과 대구 수성 제시</td></tr>
+                <tr><td>해외 확장</td><td>웨스트레이크 하노이 기반 2030년까지 2~3개 추가 검토</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>핵심 점포 리뉴얼 타임라인</h3>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-year">2026</div><div><h4>인천</h4><p>핵심 4개점 리뉴얼의 시작점입니다. 상징 점포 재정비가 본격 시작됩니다.</p></div></div>
+            <div class="timeline-item"><div class="timeline-year">2029</div><div><h4>부산</h4><p>부산 상권에서의 프리미엄 경쟁력을 다시 강화하는 구간입니다.</p></div></div>
+            <div class="timeline-item"><div class="timeline-year">2030</div><div><h4>본점</h4><p>상징성과 외국인 집객력을 동시에 갖춘 핵심 플래그십 재정비입니다.</p></div></div>
+            <div class="timeline-item"><div class="timeline-year">2032</div><div><h4>잠실</h4><p>롯데타운 잠실의 장기 경쟁력을 강화하는 마지막 큰 축입니다.</p></div></div>
+          </div>
+        </article>
+        <article class="card">
+          <h3>웨스트레이크 하노이 기억법</h3>
+          <div class="script-line">웨스트레이크 하노이는 해외 점포 하나가 아니라, 롯데가 동남아에서 복제하려는 <span class="spot cool">프리미엄 복합 쇼핑몰 성공 모델</span>입니다.</div>
+          <ul>
+            <li>자료는 <strong>동남아시아 프리미엄 쇼핑 1번지</strong>를 직접 제시합니다.</li>
+            <li>2030년까지 <strong>2~3개 추가 출점 검토</strong>가 명시돼 있습니다.</li>
+            <li>베트남 신규 출점 2개점, 인도네시아 추가 리뉴얼 8개점도 같이 언급됩니다.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="bizreport">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Business Report</div>
+          <h2>사업보고서에서 추가로 읽어야 할 포인트</h2>
+          <p>이 자료는 “롯데가 지금 백화점을 어떤 사업으로 보고 있는가”를 가장 선명하게 보여줍니다. 최신 연결 기준 숫자와 미래 전략, 그리고 리스크까지 같이 보이면 PT 답변의 깊이가 확 달라집니다.</p>
+        </div>
+      </div>
+      <div class="flash-grid">
+        <article class="flash-card red">
+          <span class="step">2025 연결 기준</span>
+          <h3>24.3% vs 92.2%</h3>
+          <p>백화점 사업부는 매출 비중은 <strong>24.3%</strong>인데, 영업이익 비중은 <strong>92.2%</strong>입니다. 숫자 자체가 이미 <strong>수익성 엔진</strong>이라는 해석을 뒷받침합니다.</p>
+        </article>
+        <article class="flash-card navy">
+          <span class="step">실적 체감</span>
+          <h3>3조 3,394억 / 5,041억</h3>
+          <p>사업보고서 기준 백화점 사업부 매출은 <strong>3조 3,394억 원</strong>, 영업이익은 <strong>5,041억 원</strong>입니다. 전년 대비 매출은 <strong>+0.6%</strong>, 영업이익은 <strong>+27.7%</strong> 늘었습니다.</p>
+        </article>
+        <article class="flash-card teal">
+          <span class="step">운영 포맷</span>
+          <h3>국내 31개 + 해외 4개</h3>
+          <p>사업 개요 페이지를 보면 국내 백화점 <strong>31개점</strong>, 해외 백화점 <strong>4개점</strong>, 아울렛 <strong>17개점</strong>, 쇼핑몰까지 포함한 포트폴리오가 굴러갑니다. 즉 백화점은 단일 포맷이 아니라 <strong>공간 포트폴리오 사업</strong>입니다.</p>
+        </article>
+        <article class="flash-card gold">
+          <span class="step">미래 방향</span>
+          <h3>리뉴얼 + 외국인 + 복합몰</h3>
+          <p>회사 문구는 분명합니다. <strong>주력 점포 리뉴얼 및 집중 투자</strong>, <strong>외국인 유입 확대</strong>, <strong>미래형 복합쇼핑몰 개발 가속</strong>이 지금 롯데백화점의 핵심 실행축입니다.</p>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>다른 사업부와 같이 보면 더 선명한 이유</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>사업부</th><th>2025 매출</th><th>2025 영업이익</th><th>면접에서 읽을 포인트</th></tr></thead>
+              <tbody>
+                <tr><td>백화점</td><td><strong>3조 3,394억</strong></td><td><strong>5,041억</strong></td><td>매출보다 이익 존재감이 압도적</td></tr>
+                <tr><td>할인점</td><td>5조 4,713억</td><td>-70억</td><td>매출은 크지만 수익성은 약함</td></tr>
+                <tr><td>전자제품전문점</td><td>2조 3,001억</td><td>97억</td><td>개선 중이지만 절대 이익 규모는 작음</td></tr>
+                <tr><td>이커머스</td><td>1,089억</td><td>-294억</td><td>적자 축소 단계, 아직 턴어라운드 진행형</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="footer-note">포인트: 사업보고서 숫자는 연결 기준 백화점 사업부라서, 국내 백화점만 따로 잡은 4Q IR 수치와 섞지 않고 분리해서 외우는 편이 안전합니다.</div>
+        </article>
+        <article class="card">
+          <h3>회사 문장이 직접 말하는 현재 주력 방향</h3>
+          <div class="script-line">사업보고서는 백화점 수익성 개선의 배경을 <span class="spot">대형점 성장</span>, <span class="spot">외국인 관광객 매출 확대</span>, <span class="spot">고마진 패션 호조</span>, <span class="spot">판관비 효율화</span>로 정리합니다.</div>
+          <ul>
+            <li>국내 백화점은 핵심상권 마켓 리더십을 재구축하기 위해 <strong>주력 점포 리뉴얼과 집중 투자</strong>를 이어갑니다.</li>
+            <li>본점·잠실처럼 <strong>외국인 매출 구성비가 높은 점포 중심</strong>으로 외국인 유입 확대 전략을 적극 추진할 계획입니다.</li>
+            <li>백화점의 다음 성장축은 <strong>미래형 복합쇼핑몰 개발</strong>과 <strong>지역 랜드마크화</strong>로 제시됩니다.</li>
+            <li>해외는 웨스트레이크 하노이 성공 모델을 바탕으로 <strong>하노이·호치민의 추가 복합쇼핑몰 개발</strong>까지 열어두고 있습니다.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>면접에서 바로 써먹는 해석</h3>
+          <p><span class="label-chip fact">팩트</span>사업보고서는 백화점 영업이익이 5,041억 원이고, 연결 영업이익의 92.2%를 차지한다고 제시합니다.</p>
+          <p><span class="label-chip read">해석</span>회사가 백화점을 “지켜야 하는 사업”이 아니라 “더 투자해서 키울 사업”으로 보고 있다는 뜻입니다. 그래서 전략 키워드도 유지가 아니라 리뉴얼, 외국인 확대, 복합몰 개발로 잡혀 있습니다.</p>
+          <p><span class="label-chip say">말하기</span>사업보고서를 보면 롯데쇼핑은 백화점을 단순 안정 사업이 아니라, 핵심 점포 투자와 외국인 전략, 복합쇼핑몰 개발을 통해 더 키우려는 핵심 축으로 보고 있다고 이해했습니다.</p>
+        </article>
+        <article class="card">
+          <h3>리스크까지 읽으면 답변이 깊어진다</h3>
+          <div class="tag-row" style="margin-top:0;">
+            <span class="tag red">소비심리 변화</span>
+            <span class="tag navy">입지·상권 경쟁</span>
+            <span class="tag teal">외국인 수요 변동</span>
+            <span class="tag gold">유통채널 경쟁</span>
+          </div>
+          <ul style="margin:18px 0 0; padding-left:18px;">
+            <li>사업보고서는 소매유통업이 가구소득과 소비지출 변화에 민감하다고 직접 설명합니다.</li>
+            <li>특히 백화점은 입지, 상권 인구구조, 소비수준, 경쟁점 위치, MD 구성, 서비스 역량이 실적에 곧바로 영향을 준다고 적습니다.</li>
+            <li>또한 외국인의 국내 쇼핑 감소, 내국인의 해외 쇼핑 증가, 글로벌 이커머스 진출 같은 외부 변수도 수익성에 부담이 될 수 있다고 봅니다.</li>
+          </ul>
+          <div class="script-line">즉 롯데백화점 마케팅은 예쁜 캠페인을 만드는 일이 아니라, 상권과 고객구조가 흔들려도 구매전환과 체류가 유지되게 설계하는 일이라고 말하면 좋습니다.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Insight</div>
+          <h2>인사이트는 이렇게 외우기</h2>
+          <p>각 카드마다 팩트, 해석, 말하기 문장을 묶었습니다. 한 카드가 한 답변이 되도록 구성했습니다.</p>
+        </div>
+      </div>
+      <div class="insight-grid">
+        <article class="insight"><h3>1. 매출보다 이익이 중요했다</h3><p><span class="label-chip fact">팩트</span>매출 +0.3%, 영업이익 +22.5%.</p><p><span class="label-chip read">해석</span>집객보다 상품 믹스와 비용 효율이 중요했다는 뜻입니다.</p><p><span class="label-chip say">말하기</span>백화점은 매출 규모보다 상품 믹스와 비용 효율에 따라 이익이 크게 달라지는 사업이라고 이해하고 있습니다.</p></article>
+        <article class="insight"><h3>2. 기존점 성장의 질이 높았다</h3><p><span class="label-chip fact">팩트</span>SSSG +8%, 대형점 +9%.</p><p><span class="label-chip read">해석</span>신규 출점보다 기존 핵심 점포 경쟁력이 강화됐다는 신호입니다.</p><p><span class="label-chip say">말하기</span>신규 점포 확대보다 기존 점포의 방문 이유를 다시 설계하는 것이 더 중요한 국면이라고 생각합니다.</p></article>
+        <article class="insight"><h3>3. 외국인은 점포별로 다르게 봐야 한다</h3><p><span class="label-chip fact">팩트</span>동부산 +68%, 부산본점 +40%, 본점 +30%, 잠실 +18%.</p><p><span class="label-chip read">해석</span>외국인을 하나의 집단으로 볼 수 없고, 점포별 관광 목적과 상권 맥락을 봐야 합니다.</p><p><span class="label-chip say">말하기</span>외국인 마케팅은 전국 공통 메시지보다 점포별 목적형 세분화 전략이 중요하다고 생각합니다.</p></article>
+        <article class="insight"><h3>4. 미래 전략은 공간 포트폴리오 재편이다</h3><p><span class="label-chip fact">팩트</span>핵심 4개점 리뉴얼, 쇼핑몰 확대, 웨스트레이크 하노이 모델 확장.</p><p><span class="label-chip read">해석</span>백화점은 판매 공간이 아니라 목적형 복합 플랫폼으로 진화하고 있습니다.</p><p><span class="label-chip say">말하기</span>롯데백화점은 핵심 점포 중심 투자와 자산 효율화를 통해 중장기 경쟁력을 재설계하고 있다고 봅니다.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="script">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">PT Script</div>
+          <h2>PT 면접에서 바로 쓸 문장</h2>
+          <p>외우기 어렵지 않게 3문장 구조로 압축했습니다. 이 순서로 말하면 자연스럽습니다.</p>
+        </div>
+      </div>
+      <div class="script-board">
+        <article class="script-card">
+          <h3>1분 버전</h3>
+          <div class="script-line">2025년 롯데쇼핑 IR 자료를 보면 백화점은 매출보다 이익 기여도가 훨씬 큰 핵심 사업이었고, 기존점 성장과 외국인 매출 확대가 수익성 개선을 이끌었습니다.</div>
+          <div class="script-line">특히 매출은 +0.3%에 그쳤지만 영업이익은 +22.5% 증가했다는 점에서, 백화점 마케팅의 핵심은 단순 집객보다 구매전환과 고마진 카테고리 소비를 설계하는 것이라고 생각합니다.</div>
+          <div class="script-line">앞으로는 핵심 점포 리뉴얼과 쇼핑몰 확대, 웨스트레이크 하노이 모델 확장을 통해 롯데백화점이 더 강한 목적형 플랫폼으로 진화할 가능성이 높다고 봅니다.</div>
+        </article>
+        <article class="script-card">
+          <h3>키워드만 기억하기</h3>
+          <ul>
+            <li><strong>보합 매출, 급증 이익</strong> : +0.3% vs +22.5%</li>
+            <li><strong>기존점 중심 성장</strong> : SSSG +8%, 대형점 +9%</li>
+            <li><strong>외국인 세분화</strong> : 본점과 부산권 점포 해법이 다름</li>
+            <li><strong>수익성 엔진</strong> : 사업보고서 기준 매출 24.3%, 영업이익 기여도 92.2%</li>
+            <li><strong>공간 재편</strong> : 핵심 4개점 리뉴얼 + 쇼핑몰 확대</li>
+            <li><strong>해외 확장 모델</strong> : 웨스트레이크 하노이</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Source</div>
+          <h2>출처 및 검산</h2>
+          <p>면접 직전 숫자를 다시 확인할 때 보는 섹션입니다.</p>
+        </div>
+      </div>
+      <ul class="source-list">
+        <li>1차 기준: 사용자 제공 PDF `C:/Users/ektmf/Downloads/2025lotte_q4_kor.pdf`</li>
+        <li>추가 기준: 사용자 제공 PDF `C:/Users/ektmf/Desktop/공채 지원서/2026 상반기/롯데백화점/자료조사/2026lotteshopping_value_up_plan_kor.pdf`</li>
+        <li>추가 기준: 사용자 제공 PDF `C:/Users/ektmf/Desktop/공채 지원서/2026 상반기/롯데백화점/자료조사/2025lotteshopping_CEOIRDAY_kor.pdf`</li>
+        <li>최신 보강 기준: 사용자 제공 PDF `C:/Users/ektmf/Downloads/[롯데쇼핑]사업보고서(2026.03.12).pdf`</li>
+        <li>주요 참조 항목: 백화점 사업, Highlights, 연결 실적 요약, 해외 백화점, 백화점/그로서리 점포 현황</li>
+        <li>가치 제고 계획 참조 항목: Summary, 목표 이행점검, 실행 계획 이행점검</li>
+        <li>CEO IR DAY 참조 항목: 백화점 핵심상권 마켓리더십 재구축 16/38, 복합 점포 Space 효율화 전략 17/38, 동남아시아 프리미엄 쇼핑 1번지로의 도약 23/38</li>
+        <li>사업보고서 참조 항목: II. 사업의 내용 Page 19~20, IV. 이사의 경영진단 및 분석의견 Page 382~384</li>
+        <li>연간 매출 YoY: ((32,127 - 32,036) / 32,036) × 100 = 0.3%</li>
+        <li>연간 영업이익 YoY: ((4,912 - 4,009) / 4,009) × 100 = 22.5%</li>
+        <li>4Q 2024 매출 역산: 9,168 / 1.042 ≈ 8,798</li>
+        <li>4Q 2024 영업이익 역산: 2,204 / 1.22 ≈ 1,807</li>
+        <li>가치 제고 계획 핵심 페이지: Summary 3/11, 목표 이행점검 5/11, 실행 계획 이행점검 8/11~9/11</li>
+        <li>사업보고서 기준 백화점 매출 비중: 3,339,352 / 13,738,355 × 100 = 24.3%</li>
+        <li>사업보고서 기준 백화점 영업이익 비중: 504,125 / 547,037 × 100 = 92.2%</li>
+        <li>사업보고서 기준 백화점 매출 YoY: (3,339,352 - 3,319,327) / 3,319,327 × 100 = 0.6%</li>
+        <li>사업보고서 기준 백화점 영업이익 YoY: (504,125 - 394,713) / 394,713 × 100 = 27.7%</li>
+      </ul>
+      <div class="footer-note">포인트: 베트남·인도네시아 국가 실적은 백화점과 그로서리가 함께 포함된 수치라서, 백화점 단독 수치처럼 말하지 않는 편이 안전합니다.</div>
+    </section>
+  </div>
+</body>
+</html>

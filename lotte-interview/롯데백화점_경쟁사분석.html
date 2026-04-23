@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>롯데백화점 PT 면접용 경쟁사 분석 보드</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --surface: rgba(255, 251, 245, 0.9);
+      --ink: #181411;
+      --muted: #6b6259;
+      --lotte-red: #c11f2d;
+      --lotte-red-deep: #8b1320;
+      --navy: #123a73;
+      --navy-soft: #dce8fb;
+      --teal: #0d8f8a;
+      --teal-soft: #d7f2ef;
+      --gold: #c78b22;
+      --gold-soft: #f6e7c5;
+      --violet: #5247b8;
+      --violet-soft: #ebe8ff;
+      --shadow-lg: 0 24px 60px rgba(52, 35, 21, 0.12);
+      --shadow-md: 0 12px 28px rgba(52, 35, 21, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --max: 1320px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(193, 31, 45, 0.12), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(18, 58, 115, 0.14), transparent 22%),
+        linear-gradient(180deg, #f8f4ed 0%, #f1ece4 100%);
+      line-height: 1.55;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { margin: 0; line-height: 1.15; letter-spacing: -0.03em; }
+    p { margin: 0; }
+    .shell { width: min(calc(100% - 28px), var(--max)); margin: 0 auto; padding: 20px 0 64px; }
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 40;
+      margin-bottom: 18px;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 251, 245, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+    }
+    .topbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; padding-left: 8px; }
+    .brand-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lotte-red), var(--gold));
+      box-shadow: 0 0 0 8px rgba(193, 31, 45, 0.08);
+    }
+    .jump-links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .jump-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      color: #40362f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .jump-links a.link-main {
+      background: linear-gradient(180deg, rgba(193, 31, 45, 0.11), rgba(255,255,255,0.98));
+      color: var(--lotte-red-deep);
+      border-color: rgba(193, 31, 45, 0.18);
+    }
+    .hero, .section {
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+    }
+    .hero {
+      padding: 42px;
+      border-radius: 36px;
+      background:
+        linear-gradient(140deg, rgba(255, 252, 247, 0.98), rgba(251, 241, 231, 0.96)),
+        linear-gradient(180deg, rgba(193, 31, 45, 0.12), rgba(18, 58, 115, 0.08));
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(193, 31, 45, 0.09);
+      color: var(--lotte-red-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 { margin-top: 18px; font-size: clamp(38px, 5vw, 72px); max-width: 920px; }
+    .hero-summary { margin-top: 18px; max-width: 780px; font-size: 19px; color: var(--muted); }
+    .hero-summary strong { color: var(--lotte-red-deep); }
+    .section { margin-top: 18px; padding: 30px; border-radius: var(--radius-xl); background: var(--surface); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    .section-head p { margin-top: 8px; color: var(--muted); max-width: 820px; }
+    .section-kicker { color: var(--lotte-red); font-weight: 900; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .hero-grid, .flash-grid, .panel-grid.two, .tri-grid, .script-board {
+      display: grid;
+      gap: 16px;
+    }
+    .hero-grid, .script-board { grid-template-columns: 1.2fr 0.8fr; }
+    .flash-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .panel-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tri-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hero-card, .hero-note, .card, .flash-card, .script-card, .callout, .comp-card {
+      background: linear-gradient(180deg, #fff, #faf4eb);
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+    .hero-note ul, .card ul, .script-card ul { margin: 0; padding-left: 18px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .tag, .label-chip, .step {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+    .tag { padding: 8px 12px; font-size: 13px; }
+    .tag.red, .label-chip.say { background: rgba(193, 31, 45, 0.09); color: var(--lotte-red-deep); }
+    .tag.navy, .label-chip.fact { background: var(--navy-soft); color: var(--navy); }
+    .tag.teal, .label-chip.read { background: var(--teal-soft); color: #0c6662; }
+    .tag.gold { background: var(--gold-soft); color: #8b5c04; }
+    .tag.violet { background: var(--violet-soft); color: var(--violet); }
+    .spot { color: var(--lotte-red-deep); font-weight: 900; }
+    .spot.cool { color: #0c6662; }
+    .spot.navy { color: var(--navy); }
+    .spot.gold { color: #8b5c04; }
+    .flash-card {
+      min-height: 206px;
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .flash-card.red { background: linear-gradient(180deg, #dd3442, #a51723); }
+    .flash-card.navy { background: linear-gradient(180deg, #2157a3, #14366b); }
+    .flash-card.teal { background: linear-gradient(180deg, #11a49e, #0c706d); }
+    .flash-card.gold { background: linear-gradient(180deg, #d69e2f, #9a6714); }
+    .flash-card h3 { margin-top: 18px; font-size: 24px; }
+    .flash-card p { margin-top: 12px; color: rgba(255,255,255,0.88); font-size: 15px; }
+    .flash-card strong { color: #fffbc8; }
+    .step { padding: 6px 10px; background: rgba(255,255,255,0.14); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .table-wrap { overflow-x: auto; border-radius: 22px; border: 1px solid rgba(123, 104, 87, 0.12); background: #fff; }
+    table { width: 100%; min-width: 700px; border-collapse: collapse; }
+    th, td { padding: 16px 18px; border-bottom: 1px solid #f0e6da; vertical-align: top; text-align: left; }
+    th { background: #fbf4ea; font-size: 13px; font-weight: 900; color: #5b4e42; text-transform: uppercase; letter-spacing: 0.04em; }
+    td strong { color: var(--lotte-red-deep); }
+    .callout { background: linear-gradient(180deg, #fff7f8, #fff); border-color: rgba(193, 31, 45, 0.12); }
+    .callout h3 { font-size: 24px; color: var(--lotte-red-deep); }
+    .callout p { margin-top: 12px; color: var(--muted); }
+    .script-line {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff7f8, #fff);
+      border-left: 5px solid var(--lotte-red);
+      font-size: 17px;
+      font-weight: 700;
+      color: #3c2f2a;
+    }
+    .label-chip { padding: 5px 10px; font-size: 12px; letter-spacing: 0.03em; margin-right: 8px; }
+    .comp-card h3 { font-size: 22px; }
+    .comp-card p { margin-top: 10px; color: var(--muted); }
+    .axis-list { display: grid; gap: 12px; margin-top: 16px; }
+    .axis-item {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #f9f2e9);
+      border: 1px solid rgba(123, 104, 87, 0.12);
+    }
+    .axis-item strong { display: block; margin-bottom: 8px; }
+    .bar-stack { display: grid; gap: 14px; margin-top: 18px; }
+    .bar-row { display: grid; grid-template-columns: 92px 1fr 84px; gap: 12px; align-items: center; }
+    .track {
+      position: relative;
+      overflow: hidden;
+      height: 18px;
+      border-radius: 999px;
+      background: #efe4d3;
+    }
+    .fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--w, 50%);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--bar-c1), var(--bar-c2));
+    }
+    .bar-value { text-align: right; font-size: 14px; font-weight: 900; color: var(--muted); }
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .matrix-card {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      background: linear-gradient(180deg, #fff, #faf4eb);
+    }
+    .matrix-card h4 { margin-bottom: 10px; font-size: 18px; }
+    .matrix-card ul { margin: 0; padding-left: 18px; }
+    .matrix-card li + li { margin-top: 8px; }
+    .source-list { margin: 0; padding-left: 18px; color: var(--muted); }
+    .source-list li + li, .hero-note li + li, .script-card li + li { margin-top: 10px; }
+    .footer-note { margin-top: 10px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 1180px) {
+      .hero-grid, .flash-grid, .panel-grid.two, .tri-grid, .script-board, .matrix {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 860px) {
+      .shell { width: min(calc(100% - 18px), var(--max)); }
+      .topbar { position: static; }
+      .topbar-inner, .jump-links { justify-content: flex-start; }
+      .hero, .section { padding: 22px; }
+      .bar-row { grid-template-columns: 76px 1fr 72px; gap: 8px; }
+    }
+    @media (max-width: 620px) {
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-badge"></span>
+          <span>롯데백화점 PT 면접용 경쟁사 분석 보드</span>
+        </div>
+        <div class="jump-links">
+          <a class="link-main" href="./롯데백화점_IR_요약.html">IR 보드 보기</a>
+          <a class="link-main" href="./롯데백화점_마케팅전략.html">마케팅 전략</a>
+          <a class="link-main" href="./전국백화점_매출비교.html">전국 매출비교</a>
+          <a href="#summary">핵심 요약</a>
+          <a href="#numbers">수치 비교</a>
+          <a href="#position">포지셔닝</a>
+          <a href="#implications">롯데 시사점</a>
+          <a href="#script">PT 멘트</a>
+          <a href="#sources">출처</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">Lotte Department Store · Competitor Board</div>
+      <h1>경쟁은 점포 수보다<br>플래그십·외국인·공간에서 갈린다</h1>
+      <p class="hero-summary">
+        2025년 백화점 시장은 겉으로는 성장했지만 실제 승부는 훨씬 선명했습니다.
+        <strong>신세계는 초대형 플래그십 생산성</strong>이 강했고,
+        <strong>현대는 체험형 공간 브랜드</strong>가 강했으며,
+        <strong>롯데는 점포 규모 1위와 외국인 흡수력, 리뉴얼 확장성</strong>이 강했습니다.
+        면접에서는 이 차이를 숫자보다 구조로 말하는 것이 중요합니다.
+      </p>
+      <div class="hero-grid">
+        <div class="hero-card">
+          <h3>한눈에 보는 결론</h3>
+          <div class="script-line">롯데는 <span class="spot">규모의 리더</span>이고, 신세계는 <span class="spot navy">플래그십 생산성의 리더</span>이며, 현대는 <span class="spot cool">체험형 공간의 리더</span>입니다. 따라서 롯데의 다음 과제는 규모 우위를 <span class="spot gold">관광형·리뉴얼형 성과 우위</span>로 더 선명하게 바꾸는 것입니다.</div>
+          <div class="tag-row">
+            <span class="tag red">롯데 = 규모 + 관광</span>
+            <span class="tag navy">신세계 = 명품 + 플래그십</span>
+            <span class="tag teal">현대 = 더현대 + 체험</span>
+            <span class="tag gold">공통 키워드 = 외국인 · 럭셔리 · 공간</span>
+          </div>
+        </div>
+        <aside class="hero-note">
+          <h3>이 페이지 보는 법</h3>
+          <ul>
+            <li><span class="spot">1.</span> 숫자 비교로 누가 어디서 강한지 본다</li>
+            <li><span class="spot">2.</span> 브랜드별 포지셔닝 차이를 기억한다</li>
+            <li><span class="spot">3.</span> 마지막에 롯데가 더 밀어야 할 방향으로 연결한다</li>
+          </ul>
+        </aside>
+      </div>
+    </header>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">30-Second Summary</div>
+          <h2>핵심 요약</h2>
+          <p>경쟁사 분석은 정보 나열보다 포지션을 읽는 것이 중요합니다. 아래 4줄이면 PT 도입부를 바로 만들 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="flash-grid">
+        <article class="flash-card red">
+          <span class="step">Point 1</span>
+          <h3>롯데는 규모 1위</h3>
+          <p><strong>31개 점포 합산 14조 2223억 원</strong>으로 2025년 총매출 규모 1위를 지켰습니다. 잠실과 본점, 타임빌라스 수원에 더해 <strong>2026년 강남점 리뉴얼 카드</strong>도 꺼내 들었습니다.</p>
+        </article>
+        <article class="flash-card navy">
+          <span class="step">Point 2</span>
+          <h3>신세계는 생산성 1위</h3>
+          <p><strong>강남점 3조 5800억</strong>, 센텀시티 2조 2300억으로 플래그십 경쟁력이 가장 선명합니다. 명품과 리뉴얼의 힘이 큽니다.</p>
+        </article>
+        <article class="flash-card teal">
+          <span class="step">Point 3</span>
+          <h3>현대는 체험형 강자</h3>
+          <p><strong>판교 2조 291억</strong>, 더현대 서울 1조 2864억으로 체험형 공간 브랜드를 만들었습니다. 특히 외국인 비중 확대가 빠릅니다.</p>
+        </article>
+        <article class="flash-card gold">
+          <span class="step">Point 4</span>
+          <h3>승부 키워드는 같다</h3>
+          <p>세 회사 모두 <strong>외국인, 명품, 체험형 공간</strong>에서 웃었습니다. 즉 백화점 경쟁은 더 이상 단순 점포 수 싸움이 아닙니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="numbers">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Core Numbers</div>
+          <h2>수치로 보는 경쟁 구도</h2>
+          <p>여기서는 꼭 기억할 숫자만 비교합니다. 면접에서는 이 숫자를 다 외우기보다, 숫자가 보여주는 구조를 읽는 것이 중요합니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>2025 브랜드별 총매출 비교</h3>
+          <div class="bar-stack">
+            <div class="bar-row"><strong>롯데</strong><div class="track"><div class="fill" style="--w:100%; --bar-c1:#dd3442; --bar-c2:#a51723;"></div></div><div class="bar-value">14.22조</div></div>
+            <div class="bar-row"><strong>신세계</strong><div class="track"><div class="fill" style="--w:92.4%; --bar-c1:#2157a3; --bar-c2:#14366b;"></div></div><div class="bar-value">13.14조</div></div>
+            <div class="bar-row"><strong>현대</strong><div class="track"><div class="fill" style="--w:64.0%; --bar-c1:#11a49e; --bar-c2:#0c706d;"></div></div><div class="bar-value">9.10조</div></div>
+          </div>
+          <div class="footer-note">기준: 2025년 기사 기준 총매출 비교. 롯데는 규모 1위, 신세계는 고성장, 현대는 일부 구조조정 영향으로 전체 매출은 감소했습니다.</div>
+        </article>
+        <article class="card">
+          <h3>대표 점포 성과 비교</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>회사</th><th>대표 점포</th><th>2025 성과</th><th>읽는 포인트</th></tr></thead>
+              <tbody>
+                <tr><td>롯데</td><td>잠실점</td><td><strong>3조 2891억 / +8.3%</strong></td><td>규모와 관광 수요를 동시에 잡는 플래그십</td></tr>
+                <tr><td>롯데</td><td>본점</td><td><strong>2조 1805억 / +6.4%</strong></td><td>명동 기반 외국인 흡수력</td></tr>
+                <tr><td>롯데</td><td>타임빌라스 수원</td><td><strong>4523억 / +19.0%</strong></td><td>리뉴얼 성과가 가장 강한 점포</td></tr>
+                <tr><td>신세계</td><td>강남점</td><td><strong>3조 5800억 / +10.8%</strong></td><td>국내 최고 생산성 플래그십</td></tr>
+                <tr><td>신세계</td><td>센텀시티</td><td><strong>2조 2300억 / +8.2%</strong></td><td>지방 초대형점의 성공 사례</td></tr>
+                <tr><td>현대</td><td>판교점</td><td><strong>2조 291억 / +17.2%</strong></td><td>판교 상권과 체험형 수요 결합</td></tr>
+                <tr><td>현대</td><td>더현대 서울</td><td><strong>1조 2864억 / +7.3%</strong></td><td>체험형 브랜드 아이콘</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>외국인 축에서 읽는 차이</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>회사</th><th>외국인 포인트</th><th>시사점</th></tr></thead>
+              <tbody>
+                <tr><td>롯데</td><td>기사 기준 외국인 성장률 순위 1위, 본점 외국인 매출 2024·2025 각 +40%</td><td>관광형 백화점 포지션이 가장 선명</td></tr>
+                <tr><td>신세계</td><td>강남 +52.3%, 본점 +82.3%, 센텀 +135%</td><td>명품·플래그십과 외국인 매출이 강하게 결합</td></tr>
+                <tr><td>현대</td><td>외국인 매출 7000억원대, 더현대 서울 비중 약 20%</td><td>체험형 공간이 외국인 유입으로 연결됨</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="callout">
+          <h3>숫자로 읽는 한 줄</h3>
+          <p><span class="spot">롯데는 전체 규모</span>가 가장 크고, <span class="spot navy">신세계는 개별 플래그십 생산성</span>이 가장 강하며, <span class="spot cool">현대는 공간 브랜드화</span>가 가장 또렷합니다. 따라서 롯데의 경쟁 과제는 “많이 가진 점포”를 “더 강하게 말할 수 있는 점포”로 바꾸는 것입니다.</p>
+          <div class="tag-row">
+            <span class="tag red">롯데 = 규모 리더</span>
+            <span class="tag navy">신세계 = 생산성 리더</span>
+            <span class="tag teal">현대 = 체험 리더</span>
+          </div>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>2026 최신 대응: 롯데 강남점 리뉴얼</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>항목</th><th>핵심 내용</th><th>읽는 포인트</th></tr></thead>
+              <tbody>
+                <tr><td>배경</td><td>잠실점에 더해 강남점 경쟁력을 키워 강남 상권 1위 재도전</td><td>신세계 강남점에 대한 정면 대응 카드</td></tr>
+                <tr><td>타깃</td><td>MZ 고객, 직장인, 가족 고객</td><td>세대와 라이프스타일별 집객 구조 재설계</td></tr>
+                <tr><td>MD 개편</td><td>2층 신발 전문 편집숍, 유니클로 확대 이전</td><td>MZ 집객과 체류 동선 강화</td></tr>
+                <tr><td>공간 개편</td><td>지하 1층 델리·다이닝, 4층 행사장, 6층 레저·키즈 확대</td><td>식음 + 이벤트 + 체험형 공간 강화</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="callout">
+          <h3>이 움직임이 중요한 이유</h3>
+          <p><span class="spot">강남점 리뉴얼</span>은 단순 점포 개보수가 아니라, 롯데가 <span class="spot navy">잠실 중심 체제에서 강남 상권 재공략</span>으로 한 걸음 더 나간다는 신호입니다. 특히 <span class="spot cool">MZ·식음·체험형 콘텐츠</span>를 전면에 세웠다는 점에서, 롯데도 경쟁사의 강점인 체험형 공간과 플래그십 생산성 강화에 정면 대응하고 있다고 읽을 수 있습니다.</p>
+          <div class="tag-row">
+            <span class="tag red">강남 상권 재공략</span>
+            <span class="tag navy">MZ 집객 강화</span>
+            <span class="tag teal">체험형 공간 확대</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="position">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Positioning</div>
+          <h2>브랜드별 포지셔닝 차이</h2>
+          <p>면접에서는 경쟁사를 이기는 말이 아니라, 누가 어떤 게임을 하고 있는지 읽는 말이 훨씬 중요합니다. 아래 3줄 구조로 기억하면 답변이 단단해집니다.</p>
+        </div>
+      </div>
+      <div class="tri-grid">
+        <article class="comp-card">
+          <h3>롯데백화점</h3>
+          <p><strong>규모 1위 + 관광형 흡수력 + 리뉴얼 확장성</strong>이 강점입니다. 잠실과 본점이라는 대형점 축이 있고, 타임빌라스 수원처럼 리뉴얼 성공 사례도 나왔습니다. 여기에 <strong>2026년 강남점 리모델링 재추진</strong>은 플래그십 경쟁력 강화 의지를 보여주는 최신 신호입니다.</p>
+          <div class="axis-list">
+            <div class="axis-item"><strong>강점</strong>점포 수, 상권 커버리지, 외국인 성장률, 리뉴얼 확장성, 강남 재공략 카드</div>
+            <div class="axis-item"><strong>약점</strong>중소형점 양극화 리스크, 플래그십 생산성 메시지는 신세계 대비 덜 강함</div>
+            <div class="axis-item"><strong>한 줄</strong>“가장 넓게 깔려 있고, 관광형 백화점에서 플래그십 재강화까지 시도 중인 플레이어”</div>
+          </div>
+        </article>
+        <article class="comp-card">
+          <h3>신세계백화점</h3>
+          <p><strong>명품·플래그십·리뉴얼 생산성</strong>이 가장 강하게 보입니다. 강남과 센텀처럼 상징 점포가 경쟁사보다 더 선명한 숫자를 만듭니다.</p>
+          <div class="axis-list">
+            <div class="axis-item"><strong>강점</strong>국내 최고 매출 플래그십, 명품 경쟁력, 강한 리뉴얼 메시지</div>
+            <div class="axis-item"><strong>약점</strong>점포 수·전국 커버리지 측면에선 롯데보다 좁음</div>
+            <div class="axis-item"><strong>한 줄</strong>“가장 비싼 소비를 가장 잘 붙잡는 프리미엄 플레이어”</div>
+          </div>
+        </article>
+        <article class="comp-card">
+          <h3>현대백화점</h3>
+          <p><strong>더현대 서울로 대표되는 체험형 공간 브랜드</strong>가 가장 강한 자산입니다. 판교와 더현대 서울이 보여주는 공간 브랜딩이 또렷합니다.</p>
+          <div class="axis-list">
+            <div class="axis-item"><strong>강점</strong>체험형 공간 이미지, 젊은층 유입, 외국인 비중 확대</div>
+            <div class="axis-item"><strong>약점</strong>전체 매출 규모와 전국 점포망은 롯데보다 약함</div>
+            <div class="axis-item"><strong>한 줄</strong>“경험을 브랜드로 바꾸는 공간형 플레이어”</div>
+          </div>
+        </article>
+      </div>
+      <div class="matrix">
+        <div class="matrix-card">
+          <h4>공통 성공 공식</h4>
+          <ul>
+            <li>외국인 소비 흡수</li>
+            <li>명품·워치·주얼리 중심 고가 소비</li>
+            <li>체험형 공간 경쟁력</li>
+          </ul>
+        </div>
+        <div class="matrix-card">
+          <h4>롯데가 더 강한 부분</h4>
+          <ul>
+            <li>전체 점포 규모와 매출 총량</li>
+            <li>잠실·본점·부산권을 잇는 관광형 축</li>
+            <li>타임빌라스 수원처럼 리뉴얼 성과 복제 가능성</li>
+            <li>강남점 리뉴얼로 플래그십 보강 여지 확대</li>
+          </ul>
+        </div>
+        <div class="matrix-card">
+          <h4>롯데가 더 선명해져야 할 부분</h4>
+          <ul>
+            <li>플래그십 생산성 메시지</li>
+            <li>중소형점 양극화 대응</li>
+            <li>규모 우위를 브랜드 우위로 번역하는 커뮤니케이션</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="implications">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Implications</div>
+          <h2>롯데백화점이 더 밀어야 할 경쟁 포인트</h2>
+          <p>면접에서는 경쟁사를 잘 안다는 말로 끝나면 약합니다. “그래서 롯데는 무엇을 더 해야 하는가”까지 이어져야 전략 답변이 됩니다.</p>
+        </div>
+      </div>
+      <div class="panel-grid two">
+        <article class="card">
+          <h3>1. 관광형 백화점 리더십을 더 선명하게 만들어야 한다</h3>
+          <p><span class="label-chip fact">팩트</span>롯데는 외국인 성장률 측면에서 강점이 가장 분명하고, 본점과 잠실, 부산권 거점이 있다.</p>
+          <p><span class="label-chip read">해석</span>이 강점을 점포별 세분화 전략으로 더 선명하게 가져가면 신세계의 명품 우위와는 다른 관광형 리더십을 만들 수 있다.</p>
+          <p><span class="label-chip say">말하기</span>롯데는 외국인 성장률 우위를 단순 숫자로 두지 말고, 본점·잠실·부산권을 묶은 관광형 백화점 포지션으로 더 선명하게 브랜딩해야 한다고 생각합니다.</p>
+        </article>
+        <article class="card">
+          <h3>2. 타임빌라스 수원형 성공 모델을 더 많이 복제해야 한다</h3>
+          <p><span class="label-chip fact">팩트</span>타임빌라스 수원은 2025년 +19.0%로 롯데 점포 중 가장 높은 성장률을 보였다.</p>
+          <p><span class="label-chip read">해석</span>롯데의 경쟁력은 단순 점포 수가 아니라, 리뉴얼을 통해 점포 역할을 다시 정의하는 데 있다.</p>
+          <p><span class="label-chip say">말하기</span>롯데는 리뉴얼 성공 사례를 개별 점포 성과로 끝내지 말고, 상권별로 복제 가능한 포맷 모델로 만들어야 경쟁 우위가 더 커진다고 봅니다.</p>
+        </article>
+        <article class="card">
+          <h3>3. 규모 우위를 CRM과 고마진 전환으로 연결해야 한다</h3>
+          <p><span class="label-chip fact">팩트</span>롯데는 전체 점포와 고객 접점이 가장 넓다.</p>
+          <p><span class="label-chip read">해석</span>접점이 많다는 것은 CRM과 고객 전환 전략을 가장 정교하게 설계할 수 있다는 뜻이다.</p>
+          <p><span class="label-chip say">말하기</span>롯데의 진짜 우위는 점포 수 자체보다 그 접점을 CRM과 카테고리 전환으로 연결할 수 있다는 데 있다고 생각합니다.</p>
+        </article>
+        <article class="card">
+          <h3>4. 중소형점 양극화 대응이 앞으로의 차별점이 될 수 있다</h3>
+          <p><span class="label-chip fact">팩트</span>2025년 업계 전체가 핵심 점포 쏠림과 중소형점 역신장 양극화를 보였다.</p>
+          <p><span class="label-chip read">해석</span>롯데는 점포망이 넓은 만큼 이 문제를 가장 크게 맞을 수도 있지만, 반대로 가장 먼저 해법을 만들 수도 있다.</p>
+          <p><span class="label-chip say">말하기</span>롯데는 가장 많은 점포를 가진 회사이기 때문에, 핵심점포 강화와 함께 중소형점 역할 재설계를 해내면 경쟁사 대비 더 큰 구조적 우위를 만들 수 있다고 생각합니다.</p>
+        </article>
+        <article class="card">
+          <h3>5. 강남점 리뉴얼은 플래그십 경쟁력 보강의 핵심 카드다</h3>
+          <p><span class="label-chip fact">팩트</span>롯데는 2026년 하반기부터 강남점 MD 개편과 식음·행사·레저·키즈 공간 강화를 추진하는 방향으로 알려졌다.</p>
+          <p><span class="label-chip read">해석</span>이는 신세계 강남점의 생산성 우위에 대응해, 롯데도 강남 상권에서 MZ와 체험형 수요를 다시 끌어오겠다는 전략적 대응으로 읽힌다.</p>
+          <p><span class="label-chip say">말하기</span>저는 강남점 리뉴얼이 롯데가 규모 우위를 넘어 플래그십 경쟁력까지 강화하려는 움직임이라고 보고, 특히 MZ 동선과 체험형 콘텐츠 설계가 핵심이라고 생각합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="script">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">PT Script</div>
+          <h2>면접에서 바로 쓸 문장</h2>
+          <p>경쟁사 분석은 숫자를 읊는 답변보다, 각 회사의 포지션과 롯데의 다음 과제를 말하는 답변이 더 설득력 있습니다.</p>
+        </div>
+      </div>
+      <div class="script-board">
+        <article class="script-card">
+          <h3>1분 버전</h3>
+          <div class="script-line">2025년 백화점 경쟁 구도를 보면 롯데는 매출 총량과 점포 규모에서 1위를 지키고 있었고, 신세계는 강남점과 센텀시티를 앞세운 플래그십 생산성이, 현대는 더현대 서울을 앞세운 체험형 공간 경쟁력이 가장 두드러졌습니다.</div>
+          <div class="script-line">세 회사 모두 외국인, 명품, 체험형 공간에서 성과를 냈지만, 롯데는 본점·잠실·부산권을 묶은 관광형 백화점 포지션과 타임빌라스 수원 같은 리뉴얼 확장성이 가장 큰 강점이라고 생각합니다. 최근 강남점 리뉴얼 재추진도 그 연장선에 있다고 봅니다.</div>
+          <div class="script-line">따라서 롯데는 규모 우위를 유지하는 데서 끝나지 않고, 관광형 리더십과 리뉴얼 성공 모델, 강남 플래그십 보강, CRM 기반 고마진 전환을 더 선명하게 만들 때 경쟁 우위를 더 키울 수 있다고 봅니다.</div>
+        </article>
+        <article class="script-card">
+          <h3>키워드만 기억하기</h3>
+          <ul>
+            <li><strong>롯데</strong> : 규모 1위 + 관광형 흡수력</li>
+            <li><strong>신세계</strong> : 명품 + 플래그십 생산성</li>
+            <li><strong>현대</strong> : 더현대 서울 + 체험형 공간</li>
+            <li><strong>공통 승부처</strong> : 외국인 · 명품 · 공간 경쟁력</li>
+            <li><strong>롯데 과제</strong> : 규모 우위를 관광형 리더십과 리뉴얼 복제로 전환</li>
+          </ul>
+        </article>
+      </div>
+      <div class="panel-grid two" style="margin-top:16px;">
+        <article class="card">
+          <h3>압박 질문 대응</h3>
+          <div class="script-line">“신세계가 더 강한 것 아닌가?”라는 질문에는, 신세계는 개별 플래그십 생산성이 더 강하지만 롯데는 전체 규모와 관광형 거점, 리뉴얼 확장성에서 다른 방식의 우위를 갖고 있다고 답하면 됩니다.</div>
+        </article>
+        <article class="card">
+          <h3>마무리 문장</h3>
+          <div class="script-line">경쟁사 분석을 통해 제가 본 롯데백화점의 강점은 가장 넓은 접점과 관광형 성장축을 갖고 있다는 점입니다. 저는 이 강점을 점포별 세분화 마케팅과 CRM, 공간 재해석으로 더 강한 우위로 만들고 싶습니다.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Source</div>
+          <h2>출처 및 활용 기준</h2>
+          <p>이 페이지는 사용자가 지정한 참고 기사 2개를 중심으로, 경쟁 구도를 `숫자 비교 → 포지셔닝 → 롯데 시사점` 구조로 재해석한 결과물입니다.</p>
+        </div>
+      </div>
+      <ul class="source-list">
+        <li>참고 기사 1: TENANT news, <a href="https://tnnews.co.kr/archives/262468">2025년 백화점 실적, 핵심 점포만 웃었다…성장과 역신장 양극화</a>, 2026-01-09</li>
+        <li>참고 기사 2: 토요경제, <a href="https://sateconomy.co.kr/news/view/1065619065559087">롯데·신세계·현대, 외국인·명품·체험형 공간에 웃는다</a>, 2026-04-07</li>
+        <li>참고 기사 3: 권오균 기자, “롯데百 강남점 리모델링으로 MZ 잡는다”, 2026-04-14, 사용자 제공 기사 본문 기준</li>
+        <li>핵심 사용 포인트: 브랜드별 총매출, 대표 점포 성과, 외국인 매출 특징, 공간 경쟁력과 양극화 구조</li>
+        <li>추가 활용 포인트: 롯데 강남점 리뉴얼 재추진, MZ 타깃 MD 개편, 식음·행사·레저·키즈 중심 체험형 강화</li>
+        <li>이 페이지의 문장과 인사이트는 기사 내용을 면접용으로 재구성한 것이며, 특정 회사 IR 원문이 아닌 기사 기반 해석이라는 점을 전제로 사용</li>
+      </ul>
+      <div class="footer-note">면접 팁: 경쟁사 비교에서 중요한 것은 “누가 더 좋다”가 아니라 “각 회사가 어떤 방식으로 경쟁하는지”를 읽고, 그 안에서 롯데의 강점과 과제를 말하는 것입니다.</div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025 전국 주요 백화점 매출 비교 보드</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --surface: rgba(255, 251, 245, 0.92);
+      --ink: #181411;
+      --muted: #6b6259;
+      --line: rgba(124, 101, 76, 0.16);
+      --lotte-red: #c11f2d;
+      --lotte-red-deep: #8b1320;
+      --shin-blue: #2b5ea8;
+      --hy-green: #6fa255;
+      --gal-gold: #d1aa45;
+      --ak-blue: #7aa0db;
+      --navy: #123a73;
+      --navy-soft: #dce8fb;
+      --teal: #0d8f8a;
+      --teal-soft: #d7f2ef;
+      --gold: #c78b22;
+      --gold-soft: #f6e7c5;
+      --shadow-lg: 0 24px 60px rgba(52, 35, 21, 0.12);
+      --shadow-md: 0 12px 28px rgba(52, 35, 21, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --max: 1380px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(193, 31, 45, 0.12), transparent 24%),
+        radial-gradient(circle at 100% 0%, rgba(18, 58, 115, 0.14), transparent 22%),
+        linear-gradient(180deg, #f8f4ed 0%, #f1ece4 100%);
+      line-height: 1.55;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { margin: 0; line-height: 1.15; letter-spacing: -0.03em; }
+    p { margin: 0; }
+    .shell { width: min(calc(100% - 28px), var(--max)); margin: 0 auto; padding: 20px 0 64px; }
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 40;
+      margin-bottom: 18px;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 251, 245, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+    }
+    .topbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; padding-left: 8px; }
+    .brand-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lotte-red), var(--gold));
+      box-shadow: 0 0 0 8px rgba(193, 31, 45, 0.08);
+    }
+    .jump-links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .jump-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+      color: #40362f;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .jump-links a.link-main {
+      background: linear-gradient(180deg, rgba(193, 31, 45, 0.11), rgba(255,255,255,0.98));
+      color: var(--lotte-red-deep);
+      border-color: rgba(193, 31, 45, 0.18);
+    }
+    .hero, .section {
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+    }
+    .hero {
+      padding: 42px;
+      border-radius: 36px;
+      background:
+        linear-gradient(140deg, rgba(255, 252, 247, 0.98), rgba(251, 241, 231, 0.96)),
+        linear-gradient(180deg, rgba(193, 31, 45, 0.12), rgba(18, 58, 115, 0.08));
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(193, 31, 45, 0.09);
+      color: var(--lotte-red-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 { margin-top: 18px; font-size: clamp(38px, 5vw, 72px); max-width: 980px; }
+    .hero-summary { margin-top: 18px; max-width: 860px; font-size: 19px; color: var(--muted); }
+    .hero-summary strong { color: var(--lotte-red-deep); }
+    .hero-grid, .summary-grid, .brand-card-grid, .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .hero-card, .hero-note, .section, .brand-card, .stat-card, .controls-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.86);
+      box-shadow: var(--shadow-md);
+    }
+    .hero-card, .hero-note { padding: 24px; }
+    .hero-card { grid-column: span 8; }
+    .hero-note { grid-column: span 4; }
+    .section { margin-top: 18px; padding: 30px; border-radius: var(--radius-xl); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    .section-head p { margin-top: 8px; color: var(--muted); max-width: 860px; }
+    .section-kicker { color: var(--lotte-red); font-weight: 900; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .script-line {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(193, 31, 45, 0.08), rgba(255,255,255,0.92));
+      border: 1px solid rgba(193, 31, 45, 0.12);
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .hero-note ul, .notes-list { margin: 0; padding-left: 18px; }
+    .hero-note li + li, .notes-list li + li { margin-top: 10px; }
+    .tag-row, .filter-row, .legend-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag, .filter-btn, .brand-chip, .status-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .tag {
+      padding: 10px 14px;
+      font-size: 13px;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.12);
+    }
+    .tag.red { color: var(--lotte-red-deep); background: rgba(193, 31, 45, 0.08); }
+    .tag.navy { color: var(--navy); background: var(--navy-soft); }
+    .tag.teal { color: #0b6a66; background: var(--teal-soft); }
+    .tag.gold { color: #8a6219; background: var(--gold-soft); }
+    .brand-card-grid { margin-top: 0; }
+    .brand-card {
+      grid-column: span 2;
+      padding: 18px;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+    .brand-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .brand-card.active { border-color: rgba(24, 20, 17, 0.22); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .brand-card.all.active { border-color: rgba(193, 31, 45, 0.2); }
+    .brand-card.lotte { background: linear-gradient(180deg, rgba(193,31,45,0.06), rgba(255,255,255,0.98)); }
+    .brand-card.shinsegae { background: linear-gradient(180deg, rgba(43,94,168,0.08), rgba(255,255,255,0.98)); }
+    .brand-card.hyundai { background: linear-gradient(180deg, rgba(111,162,85,0.08), rgba(255,255,255,0.98)); }
+    .brand-card.galleria { background: linear-gradient(180deg, rgba(209,170,69,0.11), rgba(255,255,255,0.98)); }
+    .brand-card.ak { background: linear-gradient(180deg, rgba(122,160,219,0.1), rgba(255,255,255,0.98)); }
+    .brand-card .brand-name { font-size: 21px; font-weight: 900; }
+    .brand-card .brand-sub { margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .brand-card .brand-metric { margin-top: 14px; font-size: 28px; font-weight: 900; letter-spacing: -0.04em; }
+    .brand-card .brand-growth { margin-top: 8px; font-size: 14px; font-weight: 800; }
+    .controls-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+    }
+    .controls-card { padding: 22px; }
+    .filter-btn {
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid rgba(123, 104, 87, 0.14);
+      color: #40362f;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: linear-gradient(180deg, rgba(193, 31, 45, 0.1), rgba(255,255,255,0.98));
+      color: var(--lotte-red-deep);
+      border-color: rgba(193, 31, 45, 0.18);
+    }
+    .search-box {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.88);
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .stats-grid { margin-top: 16px; }
+    .stat-card {
+      grid-column: span 3;
+      padding: 20px;
+      min-height: 132px;
+    }
+    .stat-label { color: var(--muted); font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+    .stat-value { margin-top: 14px; font-size: clamp(28px, 3.4vw, 42px); font-weight: 900; letter-spacing: -0.04em; }
+    .stat-sub { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .spot { color: var(--lotte-red-deep); font-weight: 900; }
+    .positive { color: var(--teal); }
+    .negative { color: var(--lotte-red-deep); }
+    .neutral { color: var(--muted); }
+    .table-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .table-meta { color: var(--muted); font-size: 14px; }
+    .table-wrap {
+      overflow: auto;
+      border-radius: 24px;
+      border: 1px solid rgba(123, 104, 87, 0.14);
+      background: rgba(255,255,255,0.88);
+    }
+    table {
+      width: 100%;
+      min-width: 1040px;
+      border-collapse: collapse;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 16px 14px;
+      background: #f9f4ee;
+      color: #51463d;
+      font-size: 13px;
+      font-weight: 900;
+      text-align: left;
+      border-bottom: 1px solid rgba(123, 104, 87, 0.18);
+    }
+    tbody td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(123, 104, 87, 0.12);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    tbody tr:hover { background: rgba(193, 31, 45, 0.04); }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.center { text-align: center; }
+    .brand-chip {
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #fff;
+    }
+    .brand-chip.롯데 { background: linear-gradient(180deg, #dd3442, #a51723); }
+    .brand-chip.신세계 { background: linear-gradient(180deg, #4174be, #234a86); }
+    .brand-chip.현대 { background: linear-gradient(180deg, #8aba72, #567c45); }
+    .brand-chip.갤러리아 { background: linear-gradient(180deg, #e0bf63, #a8821d); color: #3a2a08; }
+    .brand-chip.AK { background: linear-gradient(180deg, #8fb2ea, #5d84bf); }
+    .status-chip {
+      padding: 7px 11px;
+      font-size: 12px;
+      background: #f4efe8;
+      color: #5d524a;
+      border: 1px solid rgba(123, 104, 87, 0.14);
+    }
+    .footer-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 1180px) {
+      .hero-card, .hero-note { grid-column: span 12; }
+      .brand-card { grid-column: span 4; }
+      .stat-card { grid-column: span 6; }
+      .controls-wrap { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 860px) {
+      .shell { width: min(calc(100% - 18px), var(--max)); }
+      .topbar { position: static; }
+      .topbar-inner, .jump-links { justify-content: flex-start; }
+      .hero, .section { padding: 22px; }
+      .brand-card { grid-column: span 6; }
+      .stat-card { grid-column: span 12; }
+    }
+    @media (max-width: 620px) {
+      h1 { font-size: 36px; }
+      .brand-card { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-badge"></span>
+          <span>2025 전국 주요 백화점 매출 비교 보드</span>
+        </div>
+        <div class="jump-links">
+          <a class="link-main" href="./롯데백화점_IR_요약.html">IR 보드</a>
+          <a class="link-main" href="./롯데백화점_경쟁사분석.html">경쟁사 분석</a>
+          <a class="link-main" href="./롯데백화점_마케팅전략.html">마케팅 전략</a>
+          <a href="#overview">브랜드 비교</a>
+          <a href="#table">매출 표</a>
+          <a href="#notes">기준/메모</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">Department Store Market Board · 2025 Closing</div>
+      <h1>전국 주요 백화점 68개 점포<br>총매출 비교를 한 번에 보기</h1>
+      <p class="hero-summary">
+        2025년 마감 기준 <strong>전국 주요 백화점 68개 점포</strong>를 전체와 브랜드별로 바로 전환해서 볼 수 있게 만들었습니다.
+        면접에서는 숫자를 다 외우기보다, <strong>어느 브랜드가 얼마나 크고 어떤 점포가 상위권인지</strong>를 빠르게 읽는 것이 중요합니다.
+      </p>
+      <div class="hero-grid">
+        <div class="hero-card">
+          <h3>이 페이지 활용법</h3>
+          <div class="script-line">
+            먼저 <span class="spot">전체 68개</span>로 시장 판을 보고, 그다음 <span class="spot">롯데 / 신세계 / 현대 / 갤러리아 / AK</span>를 눌러 브랜드별 점포 구조를 확인하면 됩니다.
+          </div>
+          <div class="tag-row" style="margin-top:16px;">
+            <span class="tag red">단위: 억원</span>
+            <span class="tag navy">2025 마감 기준</span>
+            <span class="tag teal">브랜드 필터 가능</span>
+            <span class="tag gold">점포명 검색 가능</span>
+          </div>
+        </div>
+        <aside class="hero-note">
+          <h3>빠른 암기 포인트</h3>
+          <ul>
+            <li><span class="spot">1.</span> 전체 매출 총량은 롯데가 가장 크다</li>
+            <li><span class="spot">2.</span> 최상위 점포 생산성은 신세계 강남이 강하다</li>
+            <li><span class="spot">3.</span> 현대는 판교와 더현대 서울이 선두축이다</li>
+            <li><span class="spot">4.</span> 갤러리아와 AK는 선택과 집중 구조가 뚜렷하다</li>
+          </ul>
+        </aside>
+      </div>
+    </header>
+
+    <section class="section" id="overview">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Brand Overview</div>
+          <h2>브랜드별 합산 매출 비교</h2>
+          <p>아래 카드를 누르면 표가 바로 해당 브랜드로 전환됩니다. 전체 시장판을 먼저 보고, 원하는 브랜드를 눌러 점포 구성과 상위 점포를 확인하면 됩니다.</p>
+        </div>
+      </div>
+      <div class="brand-card-grid" id="brandCards"></div>
+    </section>
+
+    <section class="section" id="table">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Filterable Table</div>
+          <h2>전체 / 브랜드별 매출 비교 표</h2>
+          <p>필터 버튼으로 전체 또는 브랜드별 보기로 전환할 수 있습니다. 검색창에 점포명을 입력하면 원하는 점포만 빠르게 찾을 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="controls-wrap">
+        <div class="controls-card">
+          <h3>브랜드 선택</h3>
+          <div class="filter-row" id="filterButtons" style="margin-top:14px;"></div>
+          <input id="searchInput" class="search-box" type="text" placeholder="점포명 검색 예: 잠실, 강남, 판교">
+        </div>
+        <div class="controls-card">
+          <h3>현재 보기 요약</h3>
+          <div class="legend-row" style="margin-top:14px;">
+            <span class="tag red">전체 68개점 기준</span>
+            <span class="tag navy">폐점/미집계는 상태 표기</span>
+          </div>
+          <div class="footer-note">팁: 브랜드를 좁힌 뒤 상위 점포와 역신장 점포를 같이 보면, 면접에서 점포 구조 해석이 훨씬 쉬워집니다.</div>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="table-head">
+        <h3 id="tableTitle">전체 68개 점포 보기</h3>
+        <div class="table-meta" id="tableMeta">기준: 사용자 제공 표 이미지 · 2025년 마감 · 단위 억원</div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:88px;">순위</th>
+              <th style="width:120px;">브랜드</th>
+              <th>점포명</th>
+              <th style="width:160px;">2025 매출</th>
+              <th style="width:160px;">2024 매출</th>
+              <th style="width:130px;">신장률</th>
+              <th style="width:140px;">상태</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <div class="footer-note">정렬 기준: 현재 보기에 포함된 점포를 2025 매출 기준 내림차순으로 정렬했습니다. 2025 수치가 없는 폐점/미집계 점포는 표 하단에 배치했습니다.</div>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Notes</div>
+          <h2>기준 및 메모</h2>
+          <p>면접용으로 빠르게 읽기 쉽게 만든 비교 보드입니다. 숫자는 사용자가 제공한 2025년 마감 기준 점포별 매출 표 이미지를 바탕으로 정리했습니다.</p>
+        </div>
+      </div>
+      <ul class="notes-list">
+        <li>브랜드 구성: 롯데 31개, 신세계 13개, 현대 15개, 갤러리아 5개, AK 4개</li>
+        <li>전체 합계: 2025년 401,891억 원, 2024년 393,535억 원, 신장률 +2.1%</li>
+        <li>현대의 일부 점포는 `폐점` 또는 `미집계` 상태로 표기되어 2025 매출 값이 비어 있습니다.</li>
+        <li>이 페이지의 목적은 숫자 암기가 아니라, 브랜드 규모와 상위 점포 구조를 빠르게 읽는 데 있습니다.</li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    const brandMeta = {
+      "전체": { label: "전체", count: 68, sales2025: 401891, growth: 2.1, className: "all" },
+      "롯데": { label: "롯데", count: 31, sales2025: 142223, growth: 3.0, className: "lotte" },
+      "신세계": { label: "신세계", count: 13, sales2025: 131400, growth: 6.5, className: "shinsegae" },
+      "현대": { label: "현대", count: 15, sales2025: 91049, growth: -3.6, className: "hyundai" },
+      "갤러리아": { label: "갤러리아", count: 5, sales2025: 27099, growth: 0.2, className: "galleria" },
+      "AK": { label: "AK", count: 4, sales2025: 10120, growth: -8.0, className: "ak" }
+    };
+
+    const stores = [
+      { brand: "신세계", name: "신세계 강남점", sales2025: 35800, sales2024: 32325, growth: 10.8 },
+      { brand: "신세계", name: "신세계 센텀시티", sales2025: 22300, sales2024: 20619, growth: 8.2 },
+      { brand: "신세계", name: "신세계 대구", sales2025: 16400, sales2024: 15460, growth: 6.1 },
+      { brand: "신세계", name: "신세계 본점", sales2025: 12400, sales2024: 11921, growth: 4.0 },
+      { brand: "신세계", name: "신세계 Art&Science", sales2025: 10300, sales2024: 9510, growth: 8.3 },
+      { brand: "신세계", name: "신세계 광주", sales2025: 8000, sales2024: 7911, growth: 1.1 },
+      { brand: "신세계", name: "신세계 사우스시티(경기)", sales2025: 6500, sales2024: 6405, growth: 1.5 },
+      { brand: "신세계", name: "신세계 타임스퀘어", sales2025: 6500, sales2024: 6138, growth: 5.9 },
+      { brand: "신세계", name: "신세계 의정부", sales2025: 3800, sales2024: 3921, growth: -3.1 },
+      { brand: "신세계", name: "신세계 천안아산", sales2025: 3100, sales2024: 3267, growth: -5.1 },
+      { brand: "신세계", name: "신세계 하남", sales2025: 2600, sales2024: 2582, growth: 0.7 },
+      { brand: "신세계", name: "신세계 김해", sales2025: 2000, sales2024: 1851, growth: 8.0 },
+      { brand: "신세계", name: "신세계 마산", sales2025: 1700, sales2024: 1528, growth: 11.3 },
+
+      { brand: "롯데", name: "롯데 잠실점", sales2025: 32891, sales2024: 30362, growth: 8.3 },
+      { brand: "롯데", name: "롯데 본점", sales2025: 21805, sales2024: 20484, growth: 6.4 },
+      { brand: "롯데", name: "롯데 부산본점", sales2025: 12326, sales2024: 11819, growth: 4.3 },
+      { brand: "롯데", name: "롯데 인천터미널", sales2025: 8299, sales2024: 7876, growth: 5.4 },
+      { brand: "롯데", name: "롯데 평촌", sales2025: 4529, sales2024: 4564, growth: -0.8 },
+      { brand: "롯데", name: "타임빌라스 수원", sales2025: 4523, sales2024: 3801, growth: 19.0 },
+      { brand: "롯데", name: "롯데 동탄", sales2025: 4454, sales2024: 4221, growth: 5.5 },
+      { brand: "롯데", name: "롯데 광복", sales2025: 3961, sales2024: 3910, growth: 1.3 },
+      { brand: "롯데", name: "롯데 창원", sales2025: 3846, sales2024: 3481, growth: 10.5 },
+      { brand: "롯데", name: "롯데 노원", sales2025: 3751, sales2024: 4146, growth: -9.5 },
+      { brand: "롯데", name: "롯데 김포공항", sales2025: 3614, sales2024: 3455, growth: 4.6 },
+      { brand: "롯데", name: "롯데 영등포", sales2025: 3147, sales2024: 3374, growth: -6.7 },
+      { brand: "롯데", name: "롯데 광주", sales2025: 2713, sales2024: 2762, growth: -1.8 },
+      { brand: "롯데", name: "롯데 청량리", sales2025: 2655, sales2024: 2639, growth: 0.6 },
+      { brand: "롯데", name: "롯데 전주", sales2025: 2551, sales2024: 2669, growth: -4.4 },
+      { brand: "롯데", name: "롯데 울산", sales2025: 2536, sales2024: 2604, growth: -2.6 },
+      { brand: "롯데", name: "롯데 강남", sales2025: 2450, sales2024: 2451, growth: 0.0 },
+      { brand: "롯데", name: "롯데 대전", sales2025: 2127, sales2024: 1971, growth: 7.9 },
+      { brand: "롯데", name: "롯데 중동", sales2025: 1989, sales2024: 2082, growth: -4.5 },
+      { brand: "롯데", name: "롯데 동래", sales2025: 1842, sales2024: 2017, growth: -8.7 },
+      { brand: "롯데", name: "롯데 대구", sales2025: 1786, sales2024: 1880, growth: -5.0 },
+      { brand: "롯데", name: "롯데 구리", sales2025: 1687, sales2024: 1858, growth: -9.2 },
+      { brand: "롯데", name: "롯데 안산", sales2025: 1628, sales2024: 1685, growth: -3.4 },
+      { brand: "롯데", name: "롯데 일산", sales2025: 1605, sales2024: 1742, growth: -7.9 },
+      { brand: "롯데", name: "롯데 포항", sales2025: 1578, sales2024: 1639, growth: -3.7 },
+      { brand: "롯데", name: "롯데 분당", sales2025: 1530, sales2024: 1621, growth: -5.6 },
+      { brand: "롯데", name: "롯데 미아", sales2025: 1512, sales2024: 1560, growth: -3.1 },
+      { brand: "롯데", name: "롯데 건대스타시티", sales2025: 1419, sales2024: 1450, growth: -2.1 },
+      { brand: "롯데", name: "롯데 센텀시티", sales2025: 1352, sales2024: 1324, growth: 2.1 },
+      { brand: "롯데", name: "롯데 상인", sales2025: 1184, sales2024: 1231, growth: -3.8 },
+      { brand: "롯데", name: "롯데 관악", sales2025: 933, sales2024: 933, growth: 0.0 },
+
+      { brand: "현대", name: "현대 판교점", sales2025: 20291, sales2024: 17314, growth: 17.2 },
+      { brand: "현대", name: "더현대 서울", sales2025: 12864, sales2024: 11994, growth: 7.3 },
+      { brand: "현대", name: "현대 본점", sales2025: 12767, sales2024: 12016, growth: 6.2 },
+      { brand: "현대", name: "현대 무역센터점", sales2025: 12731, sales2024: 12665, growth: 0.5 },
+      { brand: "현대", name: "현대 대구", sales2025: 5920, sales2024: 6072, growth: -2.5 },
+      { brand: "현대", name: "현대 목동", sales2025: 5731, sales2024: 6096, growth: -6.0 },
+      { brand: "현대", name: "현대 중동", sales2025: 4533, sales2024: 4396, growth: 3.1 },
+      { brand: "현대", name: "현대 천호", sales2025: 3660, sales2024: 3897, growth: -6.1 },
+      { brand: "현대", name: "현대 킨텍스", sales2025: 3410, sales2024: 3498, growth: -2.5 },
+      { brand: "현대", name: "현대 충청", sales2025: 3390, sales2024: 3600, growth: -5.8 },
+      { brand: "현대", name: "현대 신촌", sales2025: 3212, sales2024: 3297, growth: -2.6 },
+      { brand: "현대", name: "현대 미아", sales2025: 2540, sales2024: 2692, growth: -5.6 },
+      { brand: "현대", name: "현대 디큐브", sales2025: null, sales2024: 2089, growth: null, status: "폐점" },
+      { brand: "현대", name: "현대 울산", sales2025: null, sales2024: 4073, growth: -100.0, status: "폐점" },
+      { brand: "현대", name: "현대 동구", sales2025: null, sales2024: 798, growth: -100.0, status: "미집계" },
+
+      { brand: "갤러리아", name: "갤러리아 명품관", sales2025: 11513, sales2024: 10920, growth: 5.4 },
+      { brand: "갤러리아", name: "갤러리아 타임월드", sales2025: 6032, sales2024: 6255, growth: -3.6 },
+      { brand: "갤러리아", name: "갤러리아 광교", sales2025: 5125, sales2024: 5131, growth: -0.1 },
+      { brand: "갤러리아", name: "갤러리아 센터시티", sales2025: 3058, sales2024: 3287, growth: -7.0 },
+      { brand: "갤러리아", name: "갤러리아 진주", sales2025: 1371, sales2024: 1455, growth: -5.7 },
+
+      { brand: "AK", name: "AK플라자 수원", sales2025: 4570, sales2024: 4794, growth: -4.7 },
+      { brand: "AK", name: "AK플라자 분당", sales2025: 2903, sales2024: 3342, growth: -13.1 },
+      { brand: "AK", name: "AK플라자 평택", sales2025: 1410, sales2024: 1504, growth: -6.2 },
+      { brand: "AK", name: "AK플라자 원주", sales2025: 1237, sales2024: 1301, growth: -4.9 }
+    ];
+
+    const filterOrder = ["전체", "롯데", "신세계", "현대", "갤러리아", "AK"];
+    const formatter = new Intl.NumberFormat("ko-KR");
+
+    let activeBrand = "전체";
+    let searchText = "";
+
+    function formatMoney(value) {
+      return value == null ? "-" : formatter.format(value);
+    }
+
+    function formatGrowth(value) {
+      if (value == null) return "-";
+      const sign = value > 0 ? "+" : "";
+      return sign + value.toFixed(1) + "%";
+    }
+
+    function growthClass(value) {
+      if (value == null) return "neutral";
+      if (value > 0) return "positive";
+      if (value < 0) return "negative";
+      return "neutral";
+    }
+
+    function getFilteredStores() {
+      return stores
+        .filter((store) => activeBrand === "전체" || store.brand === activeBrand)
+        .filter((store) => {
+          if (!searchText) return true;
+          return store.name.toLowerCase().includes(searchText);
+        })
+        .sort((a, b) => {
+          const aValue = a.sales2025 == null ? -1 : a.sales2025;
+          const bValue = b.sales2025 == null ? -1 : b.sales2025;
+          if (bValue !== aValue) return bValue - aValue;
+          return a.name.localeCompare(b.name, "ko");
+        });
+    }
+
+    function renderBrandCards() {
+      const container = document.getElementById("brandCards");
+      container.innerHTML = filterOrder.map((brand) => {
+        const meta = brandMeta[brand];
+        const growthClassName = growthClass(meta.growth);
+        const activeClass = brand === activeBrand ? "active" : "";
+        return `
+          <article class="brand-card ${meta.className} ${activeClass}" data-brand-card="${brand}">
+            <div class="brand-name">${meta.label}</div>
+            <div class="brand-sub">${formatter.format(meta.count)}개 점포</div>
+            <div class="brand-metric">${formatter.format(meta.sales2025)}</div>
+            <div class="brand-sub">2025 합산 매출</div>
+            <div class="brand-growth ${growthClassName}">${formatGrowth(meta.growth)}</div>
+          </article>
+        `;
+      }).join("");
+
+      container.querySelectorAll("[data-brand-card]").forEach((card) => {
+        card.addEventListener("click", () => {
+          activeBrand = card.dataset.brandCard;
+          updateView();
+          document.getElementById("table").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    }
+
+    function renderFilterButtons() {
+      const container = document.getElementById("filterButtons");
+      container.innerHTML = filterOrder.map((brand) => `
+        <button class="filter-btn ${brand === activeBrand ? "active" : ""}" type="button" data-brand="${brand}">${brand}</button>
+      `).join("");
+
+      container.querySelectorAll("[data-brand]").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeBrand = button.dataset.brand;
+          updateView();
+        });
+      });
+    }
+
+    function renderStats(filtered) {
+      const numericStores = filtered.filter((store) => store.sales2025 != null);
+      const totalSales = numericStores.reduce((sum, store) => sum + store.sales2025, 0);
+      const meta = brandMeta[activeBrand];
+      const topStore = numericStores[0];
+      const bestGrowth = numericStores.slice().sort((a, b) => b.growth - a.growth)[0];
+      const stats = [
+        {
+          label: "현재 보기",
+          value: activeBrand,
+          sub: searchText ? `검색 결과 ${filtered.length}개 점포` : `${meta.count}개 점포 기준`
+        },
+        {
+          label: "2025 매출 합계",
+          value: formatter.format(totalSales),
+          sub: "현재 표에 보이는 점포 기준"
+        },
+        {
+          label: "대표 점포",
+          value: topStore ? topStore.name : "-",
+          sub: topStore ? `매출 ${formatter.format(topStore.sales2025)}억 원` : "검색 결과 없음"
+        },
+        {
+          label: "브랜드 신장률",
+          value: formatGrowth(meta.growth),
+          sub: bestGrowth ? `최고 신장 점포: ${bestGrowth.name} (${formatGrowth(bestGrowth.growth)})` : "집계 가능한 점포 없음",
+          className: growthClass(meta.growth)
+        }
+      ];
+
+      document.getElementById("statsGrid").innerHTML = stats.map((stat) => `
+        <article class="stat-card">
+          <div class="stat-label">${stat.label}</div>
+          <div class="stat-value ${stat.className || ""}">${stat.value}</div>
+          <div class="stat-sub">${stat.sub}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderTable(filtered) {
+      const tbody = document.getElementById("tableBody");
+      const rows = filtered.map((store, index) => `
+        <tr>
+          <td class="center">${index + 1}</td>
+          <td><span class="brand-chip ${store.brand}">${store.brand}</span></td>
+          <td>${store.name}</td>
+          <td class="num">${formatMoney(store.sales2025)}</td>
+          <td class="num">${formatMoney(store.sales2024)}</td>
+          <td class="num ${growthClass(store.growth)}">${formatGrowth(store.growth)}</td>
+          <td>${store.status ? `<span class="status-chip">${store.status}</span>` : "-"}</td>
+        </tr>
+      `).join("");
+
+      tbody.innerHTML = rows || `
+        <tr>
+          <td colspan="7" class="center" style="padding:32px; color: var(--muted);">조건에 맞는 점포가 없습니다.</td>
+        </tr>
+      `;
+    }
+
+    function updateMeta(filtered) {
+      const titleBase = activeBrand === "전체" ? "전체 68개 점포 보기" : `${activeBrand} 브랜드 보기`;
+      const searchSuffix = searchText ? ` · 검색 결과 ${filtered.length}개` : "";
+      document.getElementById("tableTitle").textContent = titleBase + searchSuffix;
+      document.getElementById("tableMeta").textContent = "기준: 사용자 제공 표 이미지 · 2025년 마감 · 단위 억원";
+    }
+
+    function updateView() {
+      renderBrandCards();
+      renderFilterButtons();
+      const filtered = getFilteredStores();
+      renderStats(filtered);
+      renderTable(filtered);
+      updateMeta(filtered);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (event) => {
+      searchText = event.target.value.trim().toLowerCase();
+      updateView();
+    });
+
+    updateView();
+  </script>
+</body>
+</html>
