@@ -221,6 +221,13 @@ if ("IntersectionObserver" in window) {
 }
 
 
+
+window.addEventListener("beforeprint", () => {
+  heroWord?.getAnimations?.().forEach((animation) => animation.cancel());
+  setHeroWordImmediately(activeHeroIndex);
+  revealItems.forEach((item) => item.classList.add("is-visible"));
+});
+
 const festivalRegions = [
   { region: "서울", festivalCount: 68, visitors: 42548883, budgetM: 44942, foreign: 582875, topFestival: "2026 서울윈터페스타", topCity: "서울", topVisitors: 10983176, col: 2, row: 2 },
   { region: "부산", festivalCount: 61, visitors: 11815397, budgetM: 27960, foreign: 74761, topFestival: "제13회 해운대 빛축제", topCity: "해운대구", topVisitors: 3694744, col: 5, row: 4 },
